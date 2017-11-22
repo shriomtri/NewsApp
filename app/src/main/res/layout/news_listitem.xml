@@ -9,21 +9,26 @@
         android:id="@+id/title_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:gravity="start"
+        android:paddingLeft="5dp"
+        android:paddingStart="5dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         tools:text="Moody’s lifts India’s rating to Baa2" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="3dp">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="150dp"
             android:layout_height="100dp"
             android:contentDescription="@string/news_image"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/news_logo" />
 
         <TextView
             android:id="@+id/description_textView"
