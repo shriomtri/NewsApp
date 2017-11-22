@@ -1,7 +1,10 @@
 package com.example.joker.newsapp;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
@@ -17,11 +20,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.joker.newsapp.Adapter.TopNewListAdapter;
+import com.example.joker.newsapp.Database.NewsContractor;
+import com.example.joker.newsapp.Database.SQLHelperClass;
 import com.example.joker.newsapp.ModelClass.TopHeadlines;
 import com.example.joker.newsapp.Utils.HttpHandler;
 import com.example.joker.newsapp.Utils.ParseTopHeadline;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -35,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private TopNewListAdapter topNewListAdapter;
     private RecyclerView recyclerView;
 
+    private SQLiteDatabase database;
+    private SQLHelperClass dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,18 +56,62 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         //register the shared preference
         preferences.registerOnSharedPreferenceChangeListener(MainActivity.this);
 
+        //getting database reference
+        dbHelper = new SQLHelperClass(this);
+        database = dbHelper.getWritableDatabase();
+
         topNewListAdapter = new TopNewListAdapter(this);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        topNewListAdapter.swapAdapters(topHeadlines);
+        topNewListAdapter.swapAdapters(getAllNews());
 
         recyclerView.setAdapter(topNewListAdapter);
 
         //calling AsyncTask Top headlines
         new AsyncTopHeadLines().execute();
 
+    }
+
+
+    //method to get all the news from database and load to RecyclerView
+    private ArrayList<TopHeadlines> getAllNews() {
+
+        Cursor cursor = getDataFromDatabase();
+
+        if (topHeadlines != null)
+            topHeadlines.clear();
+
+        while (cursor.moveToNext()) {
+            TopHeadlines news;
+            String source_id = cursor.getString(cursor.getColumnIndex(NewsContractor.TopHeadline.SOURCE_ID));
+            String source_name = cursor.getString(cursor.getColumnIndex(NewsContractor.TopHeadline.SOURCE_NAME));
+            String aurthor = cursor.getString(cursor.getColumnIndex(NewsContractor.TopHeadline.AUTHOR));
+            String title = cursor.getString(cursor.getColumnIndex(NewsContractor.TopHeadline.TITLE));
+            String description = cursor.getString(cursor.getColumnIndex(NewsContractor.TopHeadline.DESC));
+            String url = cursor.getString(cursor.getColumnIndex(NewsContractor.TopHeadline.SOURCE_URL));
+            String image_url = cursor.getString(cursor.getColumnIndex(NewsContractor.TopHeadline.IMAGE_URL));
+            String publishDate = cursor.getString(cursor.getColumnIndex(NewsContractor.TopHeadline.PUBLISHED_AT));
+            news = new TopHeadlines(source_id, source_name, aurthor, title, description, url, image_url, publishDate);
+            topHeadlines.add(news);
+        }
+
+        cursor.close();
+        return topHeadlines;
+
+    }
+
+    //return all data of database for TopHeadline
+    private Cursor getDataFromDatabase() {
+        return database.query(
+                NewsContractor.TopHeadline.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                NewsContractor.TopHeadline._ID+ " DESC ");
     }
 
 
@@ -71,6 +124,30 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 //            name.setVisibility(View.INVISIBLE);
 //        else
 //            name.setVisibility(View.VISIBLE);
+
+    }
+
+    //method to load data to database fetched from Async Task
+    private void insertDataToDatabase(ArrayList<TopHeadlines> topHeadlines) {
+
+        Collections.reverse(topHeadlines);
+
+        for (TopHeadlines news : topHeadlines) {
+
+            ContentValues cv = new ContentValues();
+            cv.put(NewsContractor.TopHeadline.SOURCE_ID, news.getSource_id());
+            cv.put(NewsContractor.TopHeadline.SOURCE_NAME, news.getSource_name());
+            cv.put(NewsContractor.TopHeadline.AUTHOR , news.getAuthor());
+            cv.put(NewsContractor.TopHeadline.TITLE, news.getTitle());
+            cv.put(NewsContractor.TopHeadline.DESC, news.getDescription());
+            cv.put(NewsContractor.TopHeadline.SOURCE_URL, news.getUrl());
+            cv.put(NewsContractor.TopHeadline.IMAGE_URL, news.getImageUrl());
+            cv.put(NewsContractor.TopHeadline.PUBLISHED_AT, news.getPublishedAt());
+
+            database.insert(NewsContractor.TopHeadline.TABLE_NAME , null, cv);
+            cv.clear();
+
+        }
 
     }
 
@@ -104,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
 
-    //Aysnc task to fetch the latestNews i.e Everything
+    //Async task to fetch the latestNews i.e Everything
     private class AsyncTopHeadLines extends AsyncTask<Void, Void, String> {
 
 
@@ -128,16 +205,16 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
 
-            if (response == null ) {
+            if (response == null) {
                 showToast("Response is null.");
                 return;
             }
 
             topHeadlines = ParseTopHeadline.parseTopHeadline(response);
-            topNewListAdapter.swapAdapters(topHeadlines);
+            insertDataToDatabase(topHeadlines);
+            topNewListAdapter.swapAdapters(getAllNews());
         }
     }
-
 
     //method to show the toast
     private void showToast(String s) {

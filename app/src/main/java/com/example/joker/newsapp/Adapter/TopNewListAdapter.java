@@ -23,6 +23,7 @@ public class TopNewListAdapter extends RecyclerView.Adapter<TopNewListAdapter.Vi
     private ArrayList<TopHeadlines> topHeadlines = new ArrayList<>();
     private Context context;
 
+
     public TopNewListAdapter(Context context) {
         this.context = context;
     }
