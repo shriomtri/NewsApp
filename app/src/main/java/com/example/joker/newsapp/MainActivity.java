@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
 
-            if (response.length() < 1) {
+            if (response == null ) {
                 showToast("Response is null.");
                 return;
             }

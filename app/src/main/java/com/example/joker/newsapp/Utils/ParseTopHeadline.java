@@ -24,7 +24,7 @@ public final class ParseTopHeadline {
 
         try {
             JSONObject data = new JSONObject(rawData);
-            String status = data.getString("ok");
+            String status = data.getString("status");
 
             if (status.equals("ok")) {
                 JSONArray articles = data.getJSONArray("articles");
