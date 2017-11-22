@@ -47,5 +47,4 @@
         android:background="#000000"
         android:paddingEnd="3dp"
         android:paddingStart="3dp" />
-
 </LinearLayout>
