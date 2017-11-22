@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        tools:text="Moody’s lifts India’s rating to Baa2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/news_image"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/description_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:padding="3dp"
+            tools:text="Rating agency Moody's Investor Services said that it is lifting India's government bond rating to Baa2 from Baa3.The rating agency upgraded the Government of India's local and foreign currency issuer" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
+        android:background="#000000"
+        android:paddingEnd="3dp"
+        android:paddingStart="3dp" />
+
+</LinearLayout>
