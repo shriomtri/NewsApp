@@ -185,44 +185,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
 
-//    //Async task to fetch the latestNews i.e Everything
-//    private class AsyncTopHeadLines extends AsyncTask<Void, Void, String> {
-//
-//
-//        @Override
-//        protected String doInBackground(Void... voids) {
-//
-//            Uri.Builder builder = new Uri.Builder();
-//            builder.scheme("https")
-//                    .authority("newsapi.org")
-//                    .appendPath("v2")
-//                    .appendPath("top-headlines")
-//                    .appendQueryParameter("sources", GOOGLE_SOURCE_IN)
-//                    .appendQueryParameter("apiKey", API_KEY);
-//
-//            String url = builder.build().toString();
-//
-//            return HttpHandler.makeServiceCall(url);
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String response) {
-//            super.onPostExecute(response);
-//
-//            if (response == null) {
-//                showToast("Response is null.");
-//                return;
-//            }
-//
-//            topHeadlines = ParseTopHeadline.parseTopHeadline(response);
-//
-//            CRUDHelper.dropAllRecord(database);
-//            CRUDHelper.insertDataToDatabase(database , topHeadlines);
-//
-//            topNewListAdapter.swapAdapters(CRUDHelper.getAllRecords(database));
-//        }
-//    }
-
     //method to show the toast
     private void showToast(String s) {
 
