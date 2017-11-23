@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.joker.newsapp.Adapter.TopNewListAdapter;
+import com.example.joker.newsapp.Database.CRUDHelper;
 import com.example.joker.newsapp.Database.NewsContractor;
 import com.example.joker.newsapp.Database.SQLHelperClass;
 import com.example.joker.newsapp.ModelClass.TopHeadlines;
@@ -65,59 +66,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        topNewListAdapter.swapAdapters(getAllNews());
+        topNewListAdapter.swapAdapters(CRUDHelper.getAllRecords(database));
 
         recyclerView.setAdapter(topNewListAdapter);
 
         //calling AsyncTask Top headlines
         new AsyncTopHeadLines().execute();
 
-    }
-
-
-    //method to get all the news from database and load to RecyclerView
-    private ArrayList<TopHeadlines> getAllNews() {
-
-        Cursor cursor = getDataFromDatabase();
-
-        if (topHeadlines != null)
-            topHeadlines.clear();
-
-        while (cursor.moveToNext()) {
-            TopHeadlines news;
-            String source_id = cursor.getString(cursor.getColumnIndex(NewsContractor.TopHeadline.SOURCE_ID));
-            String source_name = cursor.getString(cursor.getColumnIndex(NewsContractor.TopHeadline.SOURCE_NAME));
-            String aurthor = cursor.getString(cursor.getColumnIndex(NewsContractor.TopHeadline.AUTHOR));
-            String title = cursor.getString(cursor.getColumnIndex(NewsContractor.TopHeadline.TITLE));
-            String description = cursor.getString(cursor.getColumnIndex(NewsContractor.TopHeadline.DESC));
-            String url = cursor.getString(cursor.getColumnIndex(NewsContractor.TopHeadline.SOURCE_URL));
-            String image_url = cursor.getString(cursor.getColumnIndex(NewsContractor.TopHeadline.IMAGE_URL));
-            String publishDate = cursor.getString(cursor.getColumnIndex(NewsContractor.TopHeadline.PUBLISHED_AT));
-            news = new TopHeadlines(source_id, source_name, aurthor, title, description, url, image_url, publishDate);
-            topHeadlines.add(news);
-        }
-
-        cursor.close();
-        return topHeadlines;
-
-    }
-
-    //return all data of database for TopHeadline
-    private Cursor getDataFromDatabase() {
-        return database.query(
-                NewsContractor.TopHeadline.TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                NewsContractor.TopHeadline._ID + " DESC ");
-    }
-
-    //to delete all records in database
-    private void deleteAllData() {
-        String DELETE_ALL_RECORDS = " DELETE FROM " + NewsContractor.TopHeadline.TABLE_NAME;
-        database.execSQL(DELETE_ALL_RECORDS);
     }
 
 
@@ -130,30 +85,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 //            name.setVisibility(View.INVISIBLE);
 //        else
 //            name.setVisibility(View.VISIBLE);
-
-    }
-
-    //method to load data to database fetched from Async Task
-    private void insertDataToDatabase(ArrayList<TopHeadlines> topHeadlines) {
-
-        Collections.reverse(topHeadlines);
-
-        for (TopHeadlines news : topHeadlines) {
-
-            ContentValues cv = new ContentValues();
-            cv.put(NewsContractor.TopHeadline.SOURCE_ID, news.getSource_id());
-            cv.put(NewsContractor.TopHeadline.SOURCE_NAME, news.getSource_name());
-            cv.put(NewsContractor.TopHeadline.AUTHOR, news.getAuthor());
-            cv.put(NewsContractor.TopHeadline.TITLE, news.getTitle());
-            cv.put(NewsContractor.TopHeadline.DESC, news.getDescription());
-            cv.put(NewsContractor.TopHeadline.SOURCE_URL, news.getUrl());
-            cv.put(NewsContractor.TopHeadline.IMAGE_URL, news.getImageUrl());
-            cv.put(NewsContractor.TopHeadline.PUBLISHED_AT, news.getPublishedAt());
-
-            database.insert(NewsContractor.TopHeadline.TABLE_NAME, null, cv);
-            cv.clear();
-
-        }
 
     }
 
@@ -217,9 +148,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             }
 
             topHeadlines = ParseTopHeadline.parseTopHeadline(response);
-            deleteAllData();
-            insertDataToDatabase(topHeadlines);
-            topNewListAdapter.swapAdapters(getAllNews());
+
+            CRUDHelper.dropAllRecord(database);
+            CRUDHelper.insertDataToDatabase(database , topHeadlines);
+
+            topNewListAdapter.swapAdapters(CRUDHelper.getAllRecords(database));
         }
     }
 
