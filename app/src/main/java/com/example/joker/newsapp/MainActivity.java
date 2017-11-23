@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private static final String API_KEY = "e562f69b208f4010850241a1e1a52e31";
     private static final String GOOGLE_SOURCE_IN = "google-news-in";
     private static final int NEWS_LOADER = 121;
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     private Toast toast = null;
 
@@ -86,16 +88,17 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         recyclerView.setAdapter(topNewListAdapter);
 
-        makeNetworkCall();
+        makeNetworkCall(GOOGLE_SOURCE_IN);
 
     }
 
     //method to handle initiate and restart of
-    private void makeNetworkCall(){
+    private void makeNetworkCall(String source){
 
         Bundle queryBundle = new Bundle();
-        queryBundle.putString("SOURCE",GOOGLE_SOURCE_IN);
-        queryBundle.putString("APIKEY",API_KEY);
+        queryBundle.putString("SOURCE",source);
+
+        Log.d(TAG , " source " + source);
 
         Loader<String> newsLoader = loaderManager.getLoader(NEWS_LOADER);
 
@@ -150,18 +153,20 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     //methods to make async network calls
     @Override
-    public Loader<String> onCreateLoader(int id, Bundle args) {
+    public Loader<String> onCreateLoader(int id, final Bundle args) {
         return new AsyncTaskLoader<String>(this) {
 
             @Override
             public String loadInBackground() {
+
+                String source = args.getString("SOURCE");
 
                 Uri.Builder builder = new Uri.Builder();
                 builder.scheme("https")
                         .authority("newsapi.org")
                         .appendPath("v2")
                         .appendPath("top-headlines")
-                        .appendQueryParameter("sources", GOOGLE_SOURCE_IN)
+                        .appendQueryParameter("sources", source)
                         .appendQueryParameter("apiKey", API_KEY);
 
                 String url = builder.build().toString();
@@ -178,9 +183,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             return;
         }
 
+        topHeadlines.clear();
         topHeadlines = ParseTopHeadline.parseTopHeadline(response);
 
         CRUDHelper.dropAllRecord(database);
+
         CRUDHelper.insertDataToDatabase(database , topHeadlines);
 
         topNewListAdapter.swapAdapters(CRUDHelper.getAllRecords(database));
@@ -200,5 +207,35 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             toast.cancel();
         toast = Toast.makeText(MainActivity.this, s, Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    //method to load news dynamically on user selections
+    public void loadNews(View view) {
+
+        int id = view.getId();
+
+        switch (id){
+            case R.id.sports_categories_espn:
+                makeNetworkCall("espn");
+                break;
+            case R.id.tech_categories_hacker:
+                makeNetworkCall("hacker-news");
+                break;
+            case R.id.general_categories_abc:
+                makeNetworkCall("abc-news");
+                break;
+            case R.id.health_categories_medical:
+                makeNetworkCall("medical-news-today");
+                break;
+            case R.id.business_categories_cnbc:
+                makeNetworkCall("cnbc");
+                break;
+            case R.id.gaming_categories_ign:
+                makeNetworkCall("ign");
+                break;
+             default:
+                 makeNetworkCall(GOOGLE_SOURCE_IN);
+        }
+
     }
 }
