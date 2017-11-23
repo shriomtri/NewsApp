@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,10 +33,11 @@ import com.example.joker.newsapp.Utils.ParseTopHeadline;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener , LoaderManager.LoaderCallbacks<String> {
 
     private static final String API_KEY = "e562f69b208f4010850241a1e1a52e31";
     private static final String GOOGLE_SOURCE_IN = "google-news-in";
+    private static final int NEWS_LOADER = 121;
 
     private Toast toast = null;
 
@@ -42,8 +46,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private TopNewListAdapter topNewListAdapter;
     private RecyclerView recyclerView;
 
+    private LoaderManager loaderManager;
     private SQLiteDatabase database;
     private SQLHelperClass dbHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         loadPreferences(preferences);
         //register the shared preference
         preferences.registerOnSharedPreferenceChangeListener(MainActivity.this);
+
+        loaderManager = getSupportLoaderManager();
 
         //getting database reference
         dbHelper = new SQLHelperClass(this);
@@ -70,8 +78,24 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         recyclerView.setAdapter(topNewListAdapter);
 
-        //calling AsyncTask Top headlines
-        new AsyncTopHeadLines().execute();
+        makeNetworkCall();
+
+    }
+
+    //method to handle initiate and restart of
+    private void makeNetworkCall(){
+
+        Bundle queryBundle = new Bundle();
+        queryBundle.putString("SOURCE",GOOGLE_SOURCE_IN);
+        queryBundle.putString("APIKEY",API_KEY);
+
+        Loader<String> newsLoader = loaderManager.getLoader(NEWS_LOADER);
+
+        if(newsLoader == null){
+            loaderManager.initLoader(NEWS_LOADER,queryBundle,this).forceLoad();
+        }else{
+            loaderManager.restartLoader(NEWS_LOADER,queryBundle,this).forceLoad();
+        }
 
     }
 
@@ -88,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     }
 
-
     //the create option menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -97,7 +120,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
-
     //to read clicks on OptionItems
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -118,43 +140,88 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
 
-    //Async task to fetch the latestNews i.e Everything
-    private class AsyncTopHeadLines extends AsyncTask<Void, Void, String> {
+    //methods to make async network calls
+    @Override
+    public Loader<String> onCreateLoader(int id, Bundle args) {
+        return new AsyncTaskLoader<String>(this) {
 
+            @Override
+            public String loadInBackground() {
 
-        @Override
-        protected String doInBackground(Void... voids) {
+                Uri.Builder builder = new Uri.Builder();
+                builder.scheme("https")
+                        .authority("newsapi.org")
+                        .appendPath("v2")
+                        .appendPath("top-headlines")
+                        .appendQueryParameter("sources", GOOGLE_SOURCE_IN)
+                        .appendQueryParameter("apiKey", API_KEY);
 
-            Uri.Builder builder = new Uri.Builder();
-            builder.scheme("https")
-                    .authority("newsapi.org")
-                    .appendPath("v2")
-                    .appendPath("top-headlines")
-                    .appendQueryParameter("sources", GOOGLE_SOURCE_IN)
-                    .appendQueryParameter("apiKey", API_KEY);
-
-            String url = builder.build().toString();
-
-            return HttpHandler.makeServiceCall(url);
-        }
-
-        @Override
-        protected void onPostExecute(String response) {
-            super.onPostExecute(response);
-
-            if (response == null) {
-                showToast("Response is null.");
-                return;
+                String url = builder.build().toString();
+                return HttpHandler.makeServiceCall(url);
             }
-
-            topHeadlines = ParseTopHeadline.parseTopHeadline(response);
-
-            CRUDHelper.dropAllRecord(database);
-            CRUDHelper.insertDataToDatabase(database , topHeadlines);
-
-            topNewListAdapter.swapAdapters(CRUDHelper.getAllRecords(database));
-        }
+        };
     }
+
+    @Override
+    public void onLoadFinished(Loader<String> loader, String response) {
+
+        if (response == null) {
+            showToast("Response is null.");
+            return;
+        }
+
+        topHeadlines = ParseTopHeadline.parseTopHeadline(response);
+
+        CRUDHelper.dropAllRecord(database);
+        CRUDHelper.insertDataToDatabase(database , topHeadlines);
+
+        topNewListAdapter.swapAdapters(CRUDHelper.getAllRecords(database));
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<String> loader) {
+
+    }
+
+
+//    //Async task to fetch the latestNews i.e Everything
+//    private class AsyncTopHeadLines extends AsyncTask<Void, Void, String> {
+//
+//
+//        @Override
+//        protected String doInBackground(Void... voids) {
+//
+//            Uri.Builder builder = new Uri.Builder();
+//            builder.scheme("https")
+//                    .authority("newsapi.org")
+//                    .appendPath("v2")
+//                    .appendPath("top-headlines")
+//                    .appendQueryParameter("sources", GOOGLE_SOURCE_IN)
+//                    .appendQueryParameter("apiKey", API_KEY);
+//
+//            String url = builder.build().toString();
+//
+//            return HttpHandler.makeServiceCall(url);
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String response) {
+//            super.onPostExecute(response);
+//
+//            if (response == null) {
+//                showToast("Response is null.");
+//                return;
+//            }
+//
+//            topHeadlines = ParseTopHeadline.parseTopHeadline(response);
+//
+//            CRUDHelper.dropAllRecord(database);
+//            CRUDHelper.insertDataToDatabase(database , topHeadlines);
+//
+//            topNewListAdapter.swapAdapters(CRUDHelper.getAllRecords(database));
+//        }
+//    }
 
     //method to show the toast
     private void showToast(String s) {
