@@ -1,50 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/title_textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:gravity="start"
-        android:paddingLeft="5dp"
-        android:paddingStart="5dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        tools:text="Moody’s lifts India’s rating to Baa2" />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white_1000"
+    app:cardElevation="5dp"
+    app:cardCornerRadius="6dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="3dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="150dp"
-            android:layout_height="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
             android:contentDescription="@string/news_image"
             android:scaleType="centerCrop"
-            android:src="@drawable/news_logo" />
+            android:background="@color/teal_600" />
+
+        <TextView
+            android:id="@+id/title_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="start"
+            android:paddingLeft="5dp"
+            android:paddingStart="5dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textSize="20sp"
+            android:textColor="@color/black_1000"
+            tools:text="Moody’s lifts India’s rating to Baa2" />
 
         <TextView
             android:id="@+id/description_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
-            android:padding="3dp"
+            android:padding="5dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="16sp"
+            android:lineSpacingExtra=".9dp"
             tools:text="Rating agency Moody's Investor Services said that it is lifting India's government bond rating to Baa2 from Baa3.The rating agency upgraded the Government of India's local and foreign currency issuer" />
+
+
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="4dp"
-        android:background="#000000"
-        android:paddingEnd="3dp"
-        android:paddingStart="3dp" />
-</LinearLayout>
+</android.support.v7.widget.CardView>
