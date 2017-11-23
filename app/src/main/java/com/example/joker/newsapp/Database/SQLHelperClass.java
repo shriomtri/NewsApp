@@ -19,21 +19,18 @@ public class SQLHelperClass extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
-        String CREATE_TABLE_TOP_HEADLINE = "CREATE TABLE " + NewsContractor.TopHeadline.TABLE_NAME + " ( "+
-                NewsContractor.TopHeadline._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                NewsContractor.TopHeadline.SOURCE_ID + " VARCHAR, "+
-                NewsContractor.TopHeadline.SOURCE_NAME + " VARCHAR, "+
-                NewsContractor.TopHeadline.TITLE + " VARCHAR, "+
-                NewsContractor.TopHeadline.DESC + " VARCHAR, "+
-                NewsContractor.TopHeadline.SOURCE_URL + " VARCHAR, "+
-                NewsContractor.TopHeadline.IMAGE_URL + " VARCHAR, "+
-                NewsContractor.TopHeadline.PUBLISHED_AT + " VARCHAR, "+
+        String CREATE_TABLE_TOP_HEADLINE = "CREATE TABLE " + NewsContractor.TopHeadline.TABLE_NAME + " ( " +
+                NewsContractor.TopHeadline._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                NewsContractor.TopHeadline.SOURCE_ID + " VARCHAR, " +
+                NewsContractor.TopHeadline.SOURCE_NAME + " VARCHAR, " +
+                NewsContractor.TopHeadline.TITLE + " VARCHAR, " +
+                NewsContractor.TopHeadline.DESC + " VARCHAR, " +
+                NewsContractor.TopHeadline.SOURCE_URL + " VARCHAR, " +
+                NewsContractor.TopHeadline.IMAGE_URL + " VARCHAR, " +
+                NewsContractor.TopHeadline.PUBLISHED_AT + " VARCHAR, " +
                 NewsContractor.TopHeadline.AUTHOR + " VARCHAR ); ";
 
         sqLiteDatabase.execSQL(CREATE_TABLE_TOP_HEADLINE);
-
-
     }
 
     @Override

@@ -111,7 +111,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 null,
                 null,
                 null,
-                NewsContractor.TopHeadline._ID+ " DESC ");
+                NewsContractor.TopHeadline._ID + " DESC ");
+    }
+
+    //to delete all records in database
+    private void deleteAllData() {
+        String DELETE_ALL_RECORDS = " DELETE FROM " + NewsContractor.TopHeadline.TABLE_NAME;
+        database.execSQL(DELETE_ALL_RECORDS);
     }
 
 
@@ -137,14 +143,14 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             ContentValues cv = new ContentValues();
             cv.put(NewsContractor.TopHeadline.SOURCE_ID, news.getSource_id());
             cv.put(NewsContractor.TopHeadline.SOURCE_NAME, news.getSource_name());
-            cv.put(NewsContractor.TopHeadline.AUTHOR , news.getAuthor());
+            cv.put(NewsContractor.TopHeadline.AUTHOR, news.getAuthor());
             cv.put(NewsContractor.TopHeadline.TITLE, news.getTitle());
             cv.put(NewsContractor.TopHeadline.DESC, news.getDescription());
             cv.put(NewsContractor.TopHeadline.SOURCE_URL, news.getUrl());
             cv.put(NewsContractor.TopHeadline.IMAGE_URL, news.getImageUrl());
             cv.put(NewsContractor.TopHeadline.PUBLISHED_AT, news.getPublishedAt());
 
-            database.insert(NewsContractor.TopHeadline.TABLE_NAME , null, cv);
+            database.insert(NewsContractor.TopHeadline.TABLE_NAME, null, cv);
             cv.clear();
 
         }
@@ -211,6 +217,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             }
 
             topHeadlines = ParseTopHeadline.parseTopHeadline(response);
+            deleteAllData();
             insertDataToDatabase(topHeadlines);
             topNewListAdapter.swapAdapters(getAllNews());
         }
