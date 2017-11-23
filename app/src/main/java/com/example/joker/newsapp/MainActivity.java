@@ -78,7 +78,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         topNewListAdapter = new TopNewListAdapter(this);
 
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+
 
         topNewListAdapter.swapAdapters(CRUDHelper.getAllRecords(database));
 
