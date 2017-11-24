@@ -42,6 +42,17 @@ public class TopNewListAdapter extends RecyclerView.Adapter<TopNewListAdapter.Vi
         holder.description.setText(topHeadlines.get(position).getDescription());
         Glide.with(context).load(topHeadlines.get(position).getImageUrl()).into(holder.imageView);
 
+        String source = topHeadlines.get(position).getSource_name();
+        holder.source.setText("continue at -"+source);
+
+        /*TODO add onclick listener on source textView such that it opens the actual news in webView*/
+
+        String author = topHeadlines.get(position).getAuthor();
+
+        if(author.equals("null"))
+            author = "not available";
+
+        holder.author.setText("author - "+author);
     }
 
 
@@ -59,7 +70,7 @@ public class TopNewListAdapter extends RecyclerView.Adapter<TopNewListAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView title, description;
+        private TextView title, description,source,author;
         private ImageView imageView;
 
         public ViewHolder(View itemView) {
@@ -68,7 +79,8 @@ public class TopNewListAdapter extends RecyclerView.Adapter<TopNewListAdapter.Vi
             title = itemView.findViewById(R.id.title_textView);
             description = itemView.findViewById(R.id.description_textView);
             imageView = itemView.findViewById(R.id.imageView);
-
+            source = itemView.findViewById(R.id.sourceTextView);
+            author = itemView.findViewById(R.id.authorTextView);
         }
     }
 }

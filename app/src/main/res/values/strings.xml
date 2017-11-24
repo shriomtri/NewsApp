@@ -12,6 +12,7 @@
     <string name="pref_summary_on">Shown</string>
     <string name="pref_summary_off">Hidden</string>
     <string name="news_image">image</string>
+    <string name="share_icon">Share</string>
 
 
 </resources>

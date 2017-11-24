@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">@color/teal_300</color>
-    <color name="colorPrimaryDark">@color/teal_400</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryDark">@color/black_1000</color>
+    <color name="colorAccent">@color/grey_600</color>
 
 
     <!-- google's material design colours from

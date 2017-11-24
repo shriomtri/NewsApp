@@ -30,22 +30,29 @@ public final class ParseTopHeadline {
                 JSONArray articles = data.getJSONArray("articles");
 
                 for (int i = 0; i < articles.length(); i++) {
-                     JSONObject article = articles.getJSONObject(i);
-                     TopHeadlines news;
+                    JSONObject article = articles.getJSONObject(i);
+                    TopHeadlines news;
 
-                     String title = article.getString("title");
-                     String description = article.getString("description");
-                     String urlToImage = article.getString("urlToImage");
+                    String title = article.getString("title");
+                    String description = article.getString("description");
+                    String urlToImage = article.getString("urlToImage");
+                    String url = article.getString("url");
+                    String author = article.getString("author");
 
-                     news = new TopHeadlines(
-                             null,
-                             null,
-                             null,
-                             title,
-                             description,
-                             null,
-                             urlToImage,
-                             null);
+                    JSONObject source = article.getJSONObject("source");
+
+                    String id = source.getString("id");
+                    String name = source.getString("name");
+
+                    news = new TopHeadlines(
+                            id,
+                            name,
+                            author,
+                            title,
+                            description,
+                            url,
+                            urlToImage,
+                            null);
 
                     topHeadlines.add(news);
 
@@ -57,8 +64,8 @@ public final class ParseTopHeadline {
         } catch (JSONException e) {
             e.printStackTrace();
             Log.d(TAG, "Json Exception in ParseTopHeadline");
-        }catch (Exception e){
-            Log.d(TAG,"Exception in ParseTopHeadline");
+        } catch (Exception e) {
+            Log.d(TAG, "Exception in ParseTopHeadline");
             e.printStackTrace();
         }
 

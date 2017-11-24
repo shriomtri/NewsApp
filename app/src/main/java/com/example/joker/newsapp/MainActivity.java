@@ -38,7 +38,7 @@ import java.util.Collections;
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener , LoaderManager.LoaderCallbacks<String> {
 
     private static final String API_KEY = "e562f69b208f4010850241a1e1a52e31";
-    private static final String GOOGLE_SOURCE_IN = "google-news-in";
+    private static final String GOOGLE_SOURCE_IN = "the-new-york-times";
     private static final int NEWS_LOADER = 121;
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -58,11 +58,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        ActionBar actionBar = getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setTitle("TopHeadLines");
-
 
 
         //get default shared preference instance
@@ -211,32 +206,32 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
     //method to load news dynamically on user selections
-    public void loadNews(View view) {
-
-        int id = view.getId();
-
-        switch (id){
-            case R.id.sports_categories_espn:
-                makeNetworkCall("espn");
-                break;
-            case R.id.tech_categories_hacker:
-                makeNetworkCall("hacker-news");
-                break;
-            case R.id.general_categories_abc:
-                makeNetworkCall("abc-news");
-                break;
-            case R.id.health_categories_medical:
-                makeNetworkCall("medical-news-today");
-                break;
-            case R.id.business_categories_cnbc:
-                makeNetworkCall("cnbc");
-                break;
-            case R.id.gaming_categories_ign:
-                makeNetworkCall("ign");
-                break;
-             default:
-                 makeNetworkCall(GOOGLE_SOURCE_IN);
-        }
-
-    }
+//    public void loadNews(View view) {
+//
+//        int id = view.getId();
+//
+//        switch (id){
+//            case R.id.sports_categories_espn:
+//                makeNetworkCall("espn");
+//                break;
+//            case R.id.tech_categories_hacker:
+//                makeNetworkCall("hacker-news");
+//                break;
+//            case R.id.general_categories_abc:
+//                makeNetworkCall("abc-news");
+//                break;
+//            case R.id.health_categories_medical:
+//                makeNetworkCall("medical-news-today");
+//                break;
+//            case R.id.business_categories_cnbc:
+//                makeNetworkCall("cnbc");
+//                break;
+//            case R.id.gaming_categories_ign:
+//                makeNetworkCall("ign");
+//                break;
+//             default:
+//                 makeNetworkCall(GOOGLE_SOURCE_IN);
+//        }
+//
+//    }
 }

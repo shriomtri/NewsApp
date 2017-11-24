@@ -4,25 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white_1000"
-    app:cardCornerRadius="7dp"
-    android:layout_marginStart="3dp"
-    android:layout_marginEnd="3dp"
-    android:layout_marginBottom="3dp">
+    android:layout_marginBottom="2dp"
+    android:background="@color/grey_600"
+    app:cardCornerRadius="7dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!--Image View-->
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@color/teal_600"
+            android:layout_height="260dp"
+            android:background="@color/grey_600"
             android:contentDescription="@string/news_image"
             android:scaleType="centerCrop" />
 
+        <!--Title textView-->
         <TextView
             android:id="@+id/title_textView"
             android:layout_width="match_parent"
@@ -41,7 +41,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/description_textView"
@@ -53,8 +53,62 @@
                 android:padding="5dp"
                 android:textSize="15sp"
                 tools:text="Rating agency Moody's Investor Services said that it is lifting India's government bond rating to Baa2 from Baa3.The rating agency upgraded the Government of India's local and foreign currency issuer" />
-
         </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="50">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/sourceTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:textColor="@color/grey_500"
+                    android:textSize="13sp"
+                    tools:text="continue at - The Hindu" />
+
+                <TextView
+                    android:id="@+id/authorTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:textColor="@color/grey_500"
+                    android:textSize="12sp"
+                    tools:text="author - Ram Nath Gobind" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/shareTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_weight="10"
+                android:drawableLeft="@drawable/ic_share_black_24dp"
+                android:drawableStart="@drawable/ic_share_black_24dp"
+                android:gravity="center"
+                android:text="@string/share_icon"
+                android:textColor="@color/grey_500"
+                android:textSize="12sp" />
+
+        </LinearLayout>
 
 
     </LinearLayout>
