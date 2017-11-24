@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         recyclerView.setAdapter(topNewListAdapter);
 
+
         makeNetworkCall(GOOGLE_SOURCE_IN);
 
     }
