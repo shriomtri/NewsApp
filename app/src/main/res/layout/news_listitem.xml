@@ -39,6 +39,7 @@
             android:textSize="17sp"
             tools:text="Moody’s lifts India’s rating to Baa2" />
 
+        <!--Description textView-->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -55,6 +56,7 @@
                 tools:text="Rating agency Moody's Investor Services said that it is lifting India's government bond rating to Baa2 from Baa3.The rating agency upgraded the Government of India's local and foreign currency issuer" />
         </ScrollView>
 
+        <!--article description-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -76,7 +78,7 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginStart="5dp"
                     android:textColor="@color/grey_500"
-                    android:textSize="13sp"
+                    android:textSize="11sp"
                     tools:text="continue at - The Hindu" />
 
                 <TextView
@@ -88,7 +90,7 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginStart="5dp"
                     android:textColor="@color/grey_500"
-                    android:textSize="12sp"
+                    android:textSize="10sp"
                     tools:text="author - Ram Nath Gobind" />
 
             </LinearLayout>
@@ -106,7 +108,7 @@
                 android:gravity="center"
                 android:text="@string/share_icon"
                 android:textColor="@color/grey_500"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
 
         </LinearLayout>
 
