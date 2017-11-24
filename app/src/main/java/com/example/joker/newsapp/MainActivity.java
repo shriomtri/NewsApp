@@ -11,6 +11,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +37,7 @@ import com.example.joker.newsapp.Utils.ParseTopHeadline;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener , LoaderManager.LoaderCallbacks<String> {
+public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener, LoaderManager.LoaderCallbacks<String> {
 
     private static final String API_KEY = "e562f69b208f4010850241a1e1a52e31";
     private static final String GOOGLE_SOURCE_IN = "the-new-york-times";
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private SQLiteDatabase database;
     private SQLHelperClass dbHelper;
 
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,22 +89,55 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         makeNetworkCall(GOOGLE_SOURCE_IN);
 
+        String[] name = {"Google-News(IN)", "CNBC", "TechCrunch", "Mashable","Buzzfeed","The Hindu"};
+        ArrayAdapter<String> menuAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, name);
+        CustomNavigationView navView = findViewById(R.id.navView);
+        drawerLayout = findViewById(R.id.drawerLayout);
+        navView.setAdapter(menuAdapter);
+
+
+        navView.setOnNavigationItemSelectedListner(new CustomNavigationView.NavigationItemSelectedListner() {
+            @Override
+            public void onItemSelected(View view, int position) {
+                switch (position) {
+                    case 0:
+                        makeNetworkCall("google-news-in");
+                        break;
+                    case 1:
+                        makeNetworkCall("cnbc");
+                        break;
+                    case 2:
+                        makeNetworkCall("techcrunch");
+                        break;
+                    case 3:
+                        makeNetworkCall("mashable");
+                        break;
+                    case 4:
+                        makeNetworkCall("buzzfeed");
+                        break;
+                    case 5:
+                        makeNetworkCall("the-hindu");
+                        break;
+                }
+                drawerLayout.closeDrawers();
+            }
+        });
     }
 
     //method to handle initiate and restart of
-    private void makeNetworkCall(String source){
+    private void makeNetworkCall(String source) {
 
         Bundle queryBundle = new Bundle();
-        queryBundle.putString("SOURCE",source);
+        queryBundle.putString("SOURCE", source);
 
-        Log.d(TAG , " source " + source);
+        Log.d(TAG, " source " + source);
 
         Loader<String> newsLoader = loaderManager.getLoader(NEWS_LOADER);
 
-        if(newsLoader == null){
-            loaderManager.initLoader(NEWS_LOADER,queryBundle,this).forceLoad();
-        }else{
-            loaderManager.restartLoader(NEWS_LOADER,queryBundle,this).forceLoad();
+        if (newsLoader == null) {
+            loaderManager.initLoader(NEWS_LOADER, queryBundle, this).forceLoad();
+        } else {
+            loaderManager.restartLoader(NEWS_LOADER, queryBundle, this).forceLoad();
         }
 
     }
@@ -127,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
+
     //to read clicks on OptionItems
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -184,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         CRUDHelper.dropAllRecord(database);
 
-        CRUDHelper.insertDataToDatabase(database , topHeadlines);
+        CRUDHelper.insertDataToDatabase(database, topHeadlines);
 
         topNewListAdapter.swapAdapters(CRUDHelper.getAllRecords(database));
 
