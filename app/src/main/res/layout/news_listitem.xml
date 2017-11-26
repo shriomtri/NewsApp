@@ -27,7 +27,7 @@
             android:id="@+id/title_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             android:layout_marginTop="10dp"
             android:gravity="start"
             android:paddingEnd="5dp"
@@ -38,6 +38,15 @@
             android:textColor="@color/black_1000"
             android:textSize="17sp"
             tools:text="Moody’s lifts India’s rating to Baa2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="1 of 2"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:gravity="right"
+            android:id="@+id/countTextView"/>
 
         <!--Description textView-->
         <ScrollView
@@ -111,6 +120,7 @@
                 android:textSize="11sp" />
 
         </LinearLayout>
+
 
 
     </LinearLayout>

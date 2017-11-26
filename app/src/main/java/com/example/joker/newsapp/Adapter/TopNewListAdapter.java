@@ -48,11 +48,14 @@ public class TopNewListAdapter extends RecyclerView.Adapter<TopNewListAdapter.Vi
         /*TODO add onclick listener on source textView such that it opens the actual news in webView*/
 
         String author = topHeadlines.get(position).getAuthor();
-
         if(author.equals("null"))
             author = "not available";
 
         holder.author.setText("author - "+author);
+
+        String noOfCards = " "+(position+1) + " of "+topHeadlines.size();
+        holder.count.setText(noOfCards);
+
     }
 
 
@@ -70,7 +73,7 @@ public class TopNewListAdapter extends RecyclerView.Adapter<TopNewListAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView title, description,source,author;
+        private TextView title, description,source,author,count;
         private ImageView imageView;
 
         public ViewHolder(View itemView) {
@@ -81,6 +84,7 @@ public class TopNewListAdapter extends RecyclerView.Adapter<TopNewListAdapter.Vi
             imageView = itemView.findViewById(R.id.imageView);
             source = itemView.findViewById(R.id.sourceTextView);
             author = itemView.findViewById(R.id.authorTextView);
+            count = itemView.findViewById(R.id.countTextView);
         }
     }
 }
