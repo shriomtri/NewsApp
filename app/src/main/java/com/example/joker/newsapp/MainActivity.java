@@ -89,39 +89,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         makeNetworkCall(GOOGLE_SOURCE_IN);
 
-        String[] name = {"Google-News(IN)", "CNBC", "TechCrunch", "Mashable","Buzzfeed","The Hindu"};
-        ArrayAdapter<String> menuAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, name);
-        CustomNavigationView navView = findViewById(R.id.navView);
-        drawerLayout = findViewById(R.id.drawerLayout);
-        navView.setAdapter(menuAdapter);
-
-
-        navView.setOnNavigationItemSelectedListner(new CustomNavigationView.NavigationItemSelectedListner() {
-            @Override
-            public void onItemSelected(View view, int position) {
-                switch (position) {
-                    case 0:
-                        makeNetworkCall("google-news-in");
-                        break;
-                    case 1:
-                        makeNetworkCall("cnbc");
-                        break;
-                    case 2:
-                        makeNetworkCall("techcrunch");
-                        break;
-                    case 3:
-                        makeNetworkCall("mashable");
-                        break;
-                    case 4:
-                        makeNetworkCall("buzzfeed");
-                        break;
-                    case 5:
-                        makeNetworkCall("the-hindu");
-                        break;
-                }
-                drawerLayout.closeDrawers();
-            }
-        });
     }
 
     //method to handle initiate and restart of
@@ -242,33 +209,4 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         toast.show();
     }
 
-    //method to load news dynamically on user selections
-//    public void loadNews(View view) {
-//
-//        int id = view.getId();
-//
-//        switch (id){
-//            case R.id.sports_categories_espn:
-//                makeNetworkCall("espn");
-//                break;
-//            case R.id.tech_categories_hacker:
-//                makeNetworkCall("hacker-news");
-//                break;
-//            case R.id.general_categories_abc:
-//                makeNetworkCall("abc-news");
-//                break;
-//            case R.id.health_categories_medical:
-//                makeNetworkCall("medical-news-today");
-//                break;
-//            case R.id.business_categories_cnbc:
-//                makeNetworkCall("cnbc");
-//                break;
-//            case R.id.gaming_categories_ign:
-//                makeNetworkCall("ign");
-//                break;
-//             default:
-//                 makeNetworkCall(GOOGLE_SOURCE_IN);
-//        }
-//
-//    }
 }

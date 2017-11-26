@@ -24,10 +24,4 @@
 
     </RelativeLayout>
 
-    <com.example.joker.newsapp.CustomNavigationView
-        android:id="@+id/navView"
-        android:layout_width="280dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start" />
-
 </android.support.v4.widget.DrawerLayout>
