@@ -8,11 +8,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,16 +26,20 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.joker.newsapp.Adapter.NavAdapter;
 import com.example.joker.newsapp.Adapter.TopNewListAdapter;
 import com.example.joker.newsapp.Database.CRUDHelper;
 import com.example.joker.newsapp.Database.NewsContractor;
 import com.example.joker.newsapp.Database.SQLHelperClass;
 import com.example.joker.newsapp.ModelClass.TopHeadlines;
 import com.example.joker.newsapp.Utils.HttpHandler;
+import com.example.joker.newsapp.Utils.NewsDataSet;
 import com.example.joker.newsapp.Utils.ParseTopHeadline;
 
 import java.util.ArrayList;
@@ -40,7 +48,7 @@ import java.util.Collections;
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener, LoaderManager.LoaderCallbacks<String> {
 
     private static final String API_KEY = "e562f69b208f4010850241a1e1a52e31";
-    private static final String GOOGLE_SOURCE_IN = "the-new-york-times";
+    private static final String GOOGLE_SOURCE_IN = "google-news-in";
     private static final int NEWS_LOADER = 121;
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -54,8 +62,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private LoaderManager loaderManager;
     private SQLiteDatabase database;
     private SQLHelperClass dbHelper;
-
-    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +92,39 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         recyclerView.setAdapter(topNewListAdapter);
 
-
         makeNetworkCall(GOOGLE_SOURCE_IN);
+
+
+        setupNavigationDrawer();
+
+
+    }
+
+    //setting up navigation drawer
+    private void setupNavigationDrawer() {
+
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        ListView navList  = findViewById(R.id.navList);
+
+        NavAdapter navAdapter = new NavAdapter(NewsDataSet.getNewsChannel(),NewsDataSet.getCategorie());
+        navList.setAdapter(navAdapter);
+
+        final String[] sourceId = NewsDataSet.getChannerId();
+
+        navList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                makeNetworkCall(sourceId[position]);
+
+                if (drawer.isDrawerOpen(GravityCompat.START)) {
+                    drawer.closeDrawer(GravityCompat.START);
+                }
+
+            }
+        });
 
     }
 
