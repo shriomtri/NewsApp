@@ -18,7 +18,7 @@ public final class NewsDataSet {
             "Medical News Today"};
 
 
-    private static String[] channerId = {
+    private static String[] channelId = {
             "abc-news",
             "bbc-news", "cnn", "the-times-of-india", "the-hindu", "nbc-news", "google-news-in", "news-york-magazine",
             "redit-r-all", "google-news-is", "google-news-uk", "metro", "business-insider", "cnbc", "financial-times",
@@ -27,7 +27,7 @@ public final class NewsDataSet {
             "buzzfeed", "daily-mail", "mashable", "ign", "polygon", "medical-news-today"
     };
 
-    private static String[] categorie = {
+    private static String[] category = {
             "General", "General", "General", "General", "General", "General", "General", "General", "General", "General", "General", "General",
             "Bussiness", "Bussiness", "Bussiness", "Bussiness", "Bussiness",
             "Sports", "Sports", "Sports", "Sports",
@@ -43,12 +43,12 @@ public final class NewsDataSet {
         return NewsChannel;
     }
 
-    public static String[] getChannerId() {
-        return channerId;
+    public static String[] getChannelId() {
+        return channelId;
     }
 
-    public static String[] getCategorie() {
-        return categorie;
+    public static String[] getCategory() {
+        return category;
     }
 }
 

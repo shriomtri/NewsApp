@@ -109,10 +109,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         ListView navList  = findViewById(R.id.navList);
 
-        NavAdapter navAdapter = new NavAdapter(NewsDataSet.getNewsChannel(),NewsDataSet.getCategorie());
+        NavAdapter navAdapter = new NavAdapter(NewsDataSet.getNewsChannel(),NewsDataSet.getCategory());
         navList.setAdapter(navAdapter);
 
-        final String[] sourceId = NewsDataSet.getChannerId();
+        final String[] sourceId = NewsDataSet.getChannelId();
 
         navList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
