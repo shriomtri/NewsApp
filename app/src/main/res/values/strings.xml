@@ -13,6 +13,7 @@
     <string name="pref_summary_off">Hidden</string>
     <string name="news_image">image</string>
     <string name="share_icon">Share</string>
+    <string name="click_to_read_more"># Click to read more.</string>
 
 
 </resources>

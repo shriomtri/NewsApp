@@ -43,7 +43,7 @@ public class TopNewListAdapter extends RecyclerView.Adapter<TopNewListAdapter.Vi
         Glide.with(context).load(topHeadlines.get(position).getImageUrl()).into(holder.imageView);
 
         String source = topHeadlines.get(position).getSource_name();
-        holder.source.setText("continue at -"+source);
+        holder.source.setText("Source-"+source);
 
         /*TODO add onclick listener on source textView such that it opens the actual news in webView*/
 
@@ -51,7 +51,7 @@ public class TopNewListAdapter extends RecyclerView.Adapter<TopNewListAdapter.Vi
         if(author.equals("null"))
             author = "not available";
 
-        holder.author.setText("author - "+author);
+        holder.author.setText("Author - "+author);
 
         String noOfCards = " "+(position+1) + " of "+topHeadlines.size();
         holder.count.setText(noOfCards);
