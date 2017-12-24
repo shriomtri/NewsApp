@@ -14,6 +14,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -33,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.joker.newsapp.Adapter.NavAdapter;
+import com.example.joker.newsapp.Adapter.PagerAdapter;
 import com.example.joker.newsapp.Adapter.TopNewListAdapter;
 import com.example.joker.newsapp.Database.CRUDHelper;
 import com.example.joker.newsapp.Database.NewsContractor;
@@ -56,8 +58,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     ArrayList<TopHeadlines> topHeadlines = new ArrayList<>();
 
-    private TopNewListAdapter topNewListAdapter;
-    private RecyclerView recyclerView;
+//    private TopNewListAdapter topNewListAdapter;
+    private ViewPager viewPager;
+    private PagerAdapter pagerAdapter;
 
     private LoaderManager loaderManager;
     private SQLiteDatabase database;
@@ -81,17 +84,20 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         dbHelper = new SQLHelperClass(this);
         database = dbHelper.getWritableDatabase();
 
-        topNewListAdapter = new TopNewListAdapter(this);
+//        topNewListAdapter = new TopNewListAdapter(this);
 
-        recyclerView = findViewById(R.id.recyclerView);
+        pagerAdapter = new PagerAdapter(getSupportFragmentManager(),CRUDHelper.getAllRecords(database),this);
+        viewPager = findViewById(R.id.newsViewPager);
+
         //recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        topNewListAdapter.swapAdapters(CRUDHelper.getAllRecords(database));
+//        topNewListAdapter.swapAdapters(CRUDHelper.getAllRecords(database));
 
-        recyclerView.setAdapter(topNewListAdapter);
+//        recyclerView.setAdapter(topNewListAdapter);
 
+        viewPager.setAdapter(pagerAdapter);
         makeNetworkCall(GOOGLE_SOURCE_IN);
 
 
@@ -227,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         CRUDHelper.insertDataToDatabase(database, topHeadlines);
 
-        topNewListAdapter.swapAdapters(CRUDHelper.getAllRecords(database));
+        pagerAdapter.swapAdapters(CRUDHelper.getAllRecords(database));
 
     }
 

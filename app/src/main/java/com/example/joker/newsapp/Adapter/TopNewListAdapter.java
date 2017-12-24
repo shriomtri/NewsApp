@@ -1,6 +1,7 @@
 package com.example.joker.newsapp.Adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,17 +44,17 @@ public class TopNewListAdapter extends RecyclerView.Adapter<TopNewListAdapter.Vi
         Glide.with(context).load(topHeadlines.get(position).getImageUrl()).into(holder.imageView);
 
         String source = topHeadlines.get(position).getSource_name();
-        holder.source.setText("Source-"+source);
+        holder.source.setText("Source-" + source);
 
         /*TODO add onclick listener on source textView such that it opens the actual news in webView*/
 
         String author = topHeadlines.get(position).getAuthor();
-        if(author.equals("null"))
+        if (author.equals("null"))
             author = "not available";
 
-        holder.author.setText("Author - "+author);
+        holder.author.setText("By - " + author);
 
-        String noOfCards = " "+(position+1) + " of "+topHeadlines.size();
+        String noOfCards = " " + (position + 1) + " of " + topHeadlines.size();
         holder.count.setText(noOfCards);
 
     }
@@ -73,8 +74,8 @@ public class TopNewListAdapter extends RecyclerView.Adapter<TopNewListAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView title, description,source,author,count;
-        private ImageView imageView;
+        TextView title, description, source, author, count;
+        ImageView imageView;
 
         public ViewHolder(View itemView) {
             super(itemView);
