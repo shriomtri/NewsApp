@@ -17,7 +17,7 @@ import org.w3c.dom.Text;
  * Created by joker on 27/11/17.
  */
 
-public class NavAdapter extends BaseAdapter{
+public class NavAdapter extends BaseAdapter {
 
     private String[] channelName = null;
     private String[] channerType = null;
@@ -45,15 +45,29 @@ public class NavAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View converterView, ViewGroup parent) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
+        Viewholder viewholder = null;
 
-        TextView sourceName = (TextView) v.findViewById(R.id.sourceName);
-        TextView sourceType = (TextView) v.findViewById(R.id.sourceType);
+        if(converterView == null) {
 
-        sourceName.setText(channelName[position]);
-        sourceType.setText(channerType[position]);
+            converterView  = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
 
-        return  v;
+            viewholder = new Viewholder();
+            viewholder.sourceType = converterView.findViewById(R.id.sourceType);
+            viewholder.sourceName = converterView.findViewById(R.id.sourceName);
+            converterView.setTag(viewholder);
 
+        }else{
+            viewholder  = (Viewholder) converterView.getTag();
+        }
+
+        viewholder.sourceName.setText(channelName[position]);
+        viewholder.sourceType.setText(channerType[position]);
+
+        return converterView;
+
+    }
+
+    class Viewholder {
+        TextView sourceName = null, sourceType = null;
     }
 }
