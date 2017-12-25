@@ -1,43 +1,31 @@
 package com.example.joker.newsapp;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.joker.newsapp.Adapter.NavAdapter;
 import com.example.joker.newsapp.Adapter.PagerAdapter;
-import com.example.joker.newsapp.Adapter.TopNewListAdapter;
 import com.example.joker.newsapp.Database.CRUDHelper;
-import com.example.joker.newsapp.Database.NewsContractor;
 import com.example.joker.newsapp.Database.SQLHelperClass;
 import com.example.joker.newsapp.ModelClass.TopHeadlines;
 import com.example.joker.newsapp.Utils.HttpHandler;
@@ -45,18 +33,19 @@ import com.example.joker.newsapp.Utils.NewsDataSet;
 import com.example.joker.newsapp.Utils.ParseTopHeadline;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener, LoaderManager.LoaderCallbacks<String> {
 
     private static final String API_KEY = "e562f69b208f4010850241a1e1a52e31";
-    private static final String GOOGLE_SOURCE_IN = "google-news-in";
+    private static final String THE_TIMES_OF_INDIA = "the-times-of-india";
     private static final int NEWS_LOADER = 121;
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private Toast toast = null;
 
     ArrayList<TopHeadlines> topHeadlines = new ArrayList<>();
+
+    private FragmentManager fm;
 
 //    private TopNewListAdapter topNewListAdapter;
     private ViewPager viewPager;
@@ -86,7 +75,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
 //        topNewListAdapter = new TopNewListAdapter(this);
 
-        pagerAdapter = new PagerAdapter(getSupportFragmentManager(),CRUDHelper.getAllRecords(database),this);
+        fm = getSupportFragmentManager();
+        pagerAdapter = new PagerAdapter(this,fm,CRUDHelper.getAllRecords(database));
         viewPager = findViewById(R.id.newsViewPager);
 
         //recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -98,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 //        recyclerView.setAdapter(topNewListAdapter);
 
         viewPager.setAdapter(pagerAdapter);
-        makeNetworkCall(GOOGLE_SOURCE_IN);
+        makeNetworkCall(THE_TIMES_OF_INDIA);
 
 
         setupNavigationDrawer();
@@ -233,8 +223,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         CRUDHelper.insertDataToDatabase(database, topHeadlines);
 
-        pagerAdapter.swapAdapters(CRUDHelper.getAllRecords(database));
-
+        pagerAdapter = new PagerAdapter(getApplicationContext(),fm,CRUDHelper.getAllRecords(database));
+        //pagerAdapter.swapAdapters(CRUDHelper.getAllRecords(database));
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.setCurrentItem(0);
     }
 
     @Override

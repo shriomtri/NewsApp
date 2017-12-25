@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.example.joker.newsapp.ModelClass.TopHeadlines;
 import com.example.joker.newsapp.NewsFragment;
@@ -14,29 +15,23 @@ import java.util.ArrayList;
  * Created by joker on 23/12/17.
  */
 
-public class PagerAdapter extends FragmentPagerAdapter {
+public class PagerAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList<TopHeadlines> topHeadlines = new ArrayList<>();
     private Context context;
 
-    public PagerAdapter(FragmentManager fm, ArrayList<TopHeadlines> model, Context context1) {
+    public PagerAdapter(Context context, FragmentManager fm,ArrayList<TopHeadlines> topHeadlines) {
         super(fm);
-        this.topHeadlines = model;
-        this.context  = context1;
+        this.context = context;
+        this.topHeadlines = topHeadlines;
     }
+
 
     @Override
     public Fragment getItem(int position) {
         NewsFragment fragment = new NewsFragment();
-        fragment.setNews(context , topHeadlines.get(position));
+        fragment.setNews(context,topHeadlines.get(position),topHeadlines.size(),position);
         return fragment;
-    }
-
-    public void swapAdapters(ArrayList<TopHeadlines> headlines) {
-        if ((headlines != null) && (topHeadlines != headlines)) {
-            topHeadlines = headlines;
-            notifyDataSetChanged();
-        }
     }
 
     @Override
@@ -45,4 +40,13 @@ public class PagerAdapter extends FragmentPagerAdapter {
     }
 
 
+    public void swapAdapters(ArrayList<TopHeadlines> allRecords) {
+
+        if(allRecords != null && allRecords != topHeadlines){
+            topHeadlines = allRecords;
+        }
+        notifyDataSetChanged();
+
+
+    }
 }

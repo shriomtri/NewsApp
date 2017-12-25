@@ -22,6 +22,8 @@ public class NewsFragment extends Fragment {
     private TopHeadlines topHeadlines = null;
     private Context context;
 
+    private int totalSize = 0;
+    private int curPos = 0;
 
     TextView title, description, source, author, count;
     ImageView imageView;
@@ -29,17 +31,28 @@ public class NewsFragment extends Fragment {
     public NewsFragment() {
     }
 
-    public void setNews(Context context,TopHeadlines newsModel){
+    public void setNews(Context context,TopHeadlines newsModel,int totalSize,int curPos){
         this.topHeadlines = newsModel;
         this.context = context;
+        this.totalSize = totalSize;
+        this.curPos = curPos;
     }
+
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+
         View view = inflater.inflate(R.layout.news_listitem,container,false);
 
-        init(view);
+        title = view.findViewById(R.id.title_textView);
+        description = view.findViewById(R.id.description_textView);
+        imageView = view.findViewById(R.id.imageView);
+        source = view.findViewById(R.id.sourceTextView);
+        author = view.findViewById(R.id.authorTextView);
+        count = view.findViewById(R.id.countTextView);
 
         title.setText(topHeadlines.getTitle());
         description.setText(topHeadlines.getDescription());
@@ -48,27 +61,14 @@ public class NewsFragment extends Fragment {
         String sourceBy = topHeadlines.getSource_name();
         source.setText("Source-" + sourceBy);
 
-        /*TODO add onclick listener on source textView such that it opens the actual news in webView*/
         String authorName = topHeadlines.getAuthor();
         if (authorName.equals("null"))
             authorName = "not available";
 
         author.setText("By - " + authorName);
 
-        //String noOfCards = " " + (position + 1) + " of " + topHeadlines.size();
-        count.setText("1 of 10");
+        count.setText(""+(curPos+1)+" of "+totalSize);
 
         return view;
-    }
-
-    private void init(View itemView) {
-
-        title = itemView.findViewById(R.id.title_textView);
-        description = itemView.findViewById(R.id.description_textView);
-        imageView = itemView.findViewById(R.id.imageView);
-        source = itemView.findViewById(R.id.sourceTextView);
-        author = itemView.findViewById(R.id.authorTextView);
-        count = itemView.findViewById(R.id.countTextView);
-
     }
 }
