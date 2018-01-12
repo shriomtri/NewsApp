@@ -1,9 +1,11 @@
 package com.example.joker.newsapp;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,16 +56,23 @@ public class NewsFragment extends Fragment {
         author = view.findViewById(R.id.authorTextView);
         count = view.findViewById(R.id.countTextView);
 
-        title.setText(topHeadlines.getTitle());
-        description.setText(topHeadlines.getDescription());
+        title.setText(Html.fromHtml(topHeadlines.getTitle().trim()));
+        description.setText(Html.fromHtml(topHeadlines.getDescription().trim()));
         Glide.with(context).load(topHeadlines.getImageUrl()).into(imageView);
+
+        Typeface coustom_font = Typeface.createFromAsset(context.getAssets(),"fonts/CaviarDreams.ttf");
+
+        Typeface coustom_font_bold = Typeface.createFromAsset(context.getAssets(),"fonts/Caviar_Dreams_Bold.ttf");
+
+        title.setTypeface(coustom_font_bold);
+        description.setTypeface(coustom_font);
 
         String sourceBy = topHeadlines.getSource_name();
         source.setText("Source-" + sourceBy);
 
-        String authorName = topHeadlines.getAuthor();
+        String authorName = topHeadlines.getAuthor().trim();
         if (authorName.equals("null"))
-            authorName = "not available";
+            authorName = "Anonymous";
 
         author.setText("By - " + authorName);
 
