@@ -38,6 +38,10 @@ public final class ParseTopHeadline {
                     String urlToImage = article.getString("urlToImage");
                     String url = article.getString("url");
                     String author = article.getString("author");
+                    String publishedAt = article.getString("publishedAt");
+
+                    //Using Log to track publishedAt data;
+                    Log.d("published ", publishedAt);
 
                     JSONObject source = article.getJSONObject("source");
 
@@ -52,7 +56,7 @@ public final class ParseTopHeadline {
                             description,
                             url,
                             urlToImage,
-                            null);
+                            publishedAt);
 
                     topHeadlines.add(news);
 

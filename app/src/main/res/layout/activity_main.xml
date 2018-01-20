@@ -20,7 +20,7 @@
             android:id="@+id/newsViewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:background="@color/black_1000"
             android:clipToPadding="false"
             android:paddingTop="5dp"

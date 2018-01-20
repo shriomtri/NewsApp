@@ -5,8 +5,6 @@
     android:id="@+id/news_cardView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="2dp"
-    android:background="@color/grey_600"
     app:cardCornerRadius="7dp">
 
     <LinearLayout
@@ -14,14 +12,54 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--Image View-->
-        <ImageView
-            android:id="@+id/imageView"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="210dp"
-            android:background="@color/grey_600"
-            android:contentDescription="@string/news_image"
-            android:scaleType="centerCrop" />
+            android:layout_height="wrap_content">
+
+            <!--Image View-->
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:background="#8c8e91"
+                android:contentDescription="@string/news_image"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/sourceTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="The Times of Hindu"
+                android:background="#CC000000"
+                android:layout_marginBottom="2dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:paddingEnd="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingStart="8dp"
+                android:textColor="@color/white_1000"
+                android:textSize="20dp"/>
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/publishedTimeTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="12dp"
+            android:paddingEnd="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingStart="8dp"
+            android:textColor="@color/grey_500"
+            android:textSize="13sp"
+            tools:text="3rd Jan-2018" />
 
         <!--Title textView-->
         <TextView
@@ -29,95 +67,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
             android:gravity="start"
-            android:lineSpacingExtra="1dp"
             android:paddingEnd="8dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingStart="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textColor="@color/black_1000"
-            android:textSize="17sp"
+            android:textSize="20sp"
             tools:text="Moody’s lifts India’s rating to Baa2" />
 
-        <!--Description textView-->
-        <ScrollView
+        <TextView
+            android:id="@+id/description_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
-            android:scrollbars="vertical">
+            android:gravity="start"
+            android:lineSpacingExtra="2.5dp"
+            android:padding="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@color/black_1000"
+            android:textSize="20sp"
+            tools:text="Rating agency Moody's Investor Services said that it is lifting India's government bond rating to Baa2 from Baa3.The rating agency upgraded the Government of India's local and foreign currency issuer" />
 
-            <TextView
-                android:id="@+id/description_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="5dp"
-                android:gravity="start"
-                android:lineSpacingExtra="3.2dp"
-                android:padding="8dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:textColor="@color/black_1000"
-                android:textSize="16sp"
-                tools:text="Rating agency Moody's Investor Services said that it is lifting India's government bond rating to Baa2 from Baa3.The rating agency upgraded the Government of India's local and foreign currency issuer" />
-        </ScrollView>
-
-        <!--article description-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="50">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="40"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/sourceTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginBottom="2dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginStart="5dp"
-                    android:textColor="@color/grey_500"
-                    android:textSize="13sp"
-                    tools:text="continue at - The Hindu" />
-
-                <TextView
-                    android:id="@+id/countTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginStart="5dp"
-                    android:gravity="start"
-                    tools:text="1 of 2" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/shareTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_weight="10"
-                android:drawableLeft="@drawable/ic_screenshot_camera_24dp"
-                android:drawableStart="@drawable/ic_screenshot_camera_24dp"
-                android:gravity="center"
-                android:text="@string/share_icon"
-                android:textColor="@color/grey_500"
-                android:textSize="12sp" />
-
-        </LinearLayout>
 
     </LinearLayout>
 
@@ -125,32 +103,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@drawable/read_more_back"
-        android:orientation="vertical"
-        android:padding="12dp">
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:orientation="horizontal"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/web" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginBottom="0dp"
             android:layout_marginEnd="4dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
             android:text="@string/click_to_read_more"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textColor="@color/white_1000"
-            android:textSize="13sp" />
+            android:textColor="@color/deep_purple_A700"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/authorTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_margin="4dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textColor="@color/white_1000"
-            android:textSize="12sp"
-            tools:text="Author - Ram Nath Gobind" />
 
     </LinearLayout>
 

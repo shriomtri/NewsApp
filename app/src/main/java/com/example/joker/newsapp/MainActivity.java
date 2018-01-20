@@ -36,7 +36,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener, LoaderManager.LoaderCallbacks<String> {
 
-    private static final String API_KEY = "e562f69b208f4010850241a1e1a52e31";
+    private static final String API_KEY = "ded182f8057546f1b36f4cd3461219d4";
     private static final String THE_TIMES_OF_INDIA = "the-times-of-india";
     private static final int NEWS_LOADER = 121;
     private static final String TAG = MainActivity.class.getSimpleName();
