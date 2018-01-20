@@ -61,7 +61,7 @@ public class NewsFragment extends Fragment {
 
 
         title.setText(Html.fromHtml(topHeadlines.getTitle().trim()));
-        description.setText(Html.fromHtml(topHeadlines.getDescription().trim()));
+        description.setText(Html.fromHtml(topHeadlines.getDescription().trim()+"..."));
         Glide.with(context).load(topHeadlines.getImageUrl()).into(imageView);
 
         Typeface coustom_font = Typeface.createFromAsset(context.getAssets(), "fonts/JosefinSansLight.ttf");

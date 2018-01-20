@@ -20,7 +20,7 @@
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="210dp"
+                android:layout_height="230dp"
                 android:background="#8c8e91"
                 android:contentDescription="@string/news_image"
                 android:scaleType="centerCrop" />
@@ -28,19 +28,20 @@
             <TextView
                 android:id="@+id/sourceTextView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="The Times of Hindu"
-                android:background="#CC000000"
+                android:layout_height="40dp"
                 android:layout_marginBottom="2dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
+                android:background="#4D000000"
+                android:gravity="center_vertical"
                 android:paddingEnd="8dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:paddingStart="8dp"
+                android:text="The Times of Hindu"
                 android:textColor="@color/white_1000"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
         </FrameLayout>
 
@@ -77,7 +78,7 @@
             android:paddingStart="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textColor="@color/black_1000"
-            android:textSize="20sp"
+            android:textSize="21sp"
             tools:text="Moody’s lifts India’s rating to Baa2" />
 
         <TextView
@@ -93,9 +94,16 @@
             android:padding="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textColor="@color/black_1000"
-            android:textSize="20sp"
+            android:textSize="21sp"
             tools:text="Rating agency Moody's Investor Services said that it is lifting India's government bond rating to Baa2 from Baa3.The rating agency upgraded the Government of India's local and foreign currency issuer" />
 
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_300"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"/>
 
     </LinearLayout>
 
