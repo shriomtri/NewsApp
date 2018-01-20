@@ -61,7 +61,7 @@ public class NewsFragment extends Fragment {
 
 
         title.setText(Html.fromHtml(topHeadlines.getTitle().trim()));
-        description.setText(Html.fromHtml(topHeadlines.getDescription().trim()+"..."));
+        description.setText(Html.fromHtml(topHeadlines.getDescription().trim() + "..."));
         Glide.with(context).load(topHeadlines.getImageUrl()).into(imageView);
 
         Typeface coustom_font = Typeface.createFromAsset(context.getAssets(), "fonts/JosefinSansLight.ttf");
@@ -79,24 +79,78 @@ public class NewsFragment extends Fragment {
 //        if (authorName.equals("null") || authorName.length() > 20)
 //            authorName = "Anonymous";
 
-        String publishedAt = topHeadlines.getPublishedAt();
-        Log.d("published At ",publishedAt);
+        String publishedAt = topHeadlines.getPublishedAt().trim();
+        String year = publishedAt.substring(0, 4);
+        String month = publishedAt.substring(5, 7);
+        String day = publishedAt.substring(8, 10);
+
+        String date = getDate(day, Integer.parseInt(month), year);
+
         if (publishedAt.equals("null")) {
             publisTextView.setText("NewsApp");
         } else {
-            publisTextView.setText(publishedAt);
+            publisTextView.setText(date);
         }
 
         return view;
     }
 
-    private Bitmap getScreenShot(View rootView) {
+    //method to return date.
+    private String getDate(String day, int i, String year) {
 
-        View screenView = rootView.getRootView();
-        screenView.setDrawingCacheEnabled(true);
-        Bitmap bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
-        screenView.setDrawingCacheEnabled(false);
-        return bitmap;
+        String month = null;
+
+        switch (i) {
+            case 1:
+                month = "Jan";
+                break;
+            case 2:
+                month = "Feb";
+                break;
+            case 3:
+                month = "Mar";
+                break;
+            case 4:
+                month = "Apr";
+                break;
+            case 5:
+                month = "May";
+                break;
+            case 6:
+                month = "Jun";
+                break;
+            case 7:
+                month = "Jul";
+                break;
+            case 8:
+                month = "Aug";
+                break;
+            case 9:
+                month = "Sep";
+                break;
+            case 10:
+                month = "Oct";
+                break;
+            case 11:
+                month = "Nov";
+                break;
+            case 12:
+                month = "Dec";
+                break;
+        }
+
+        String date = day+"-"+month+"-"+year;
+        return date;
 
     }
+
+//    private Bitmap getScreenShot(View rootView) {
+//
+//        View screenView = rootView.getRootView();
+//        screenView.setDrawingCacheEnabled(true);
+//        Bitmap bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
+//        screenView.setDrawingCacheEnabled(false);
+//        return bitmap;
+//
+//    }
 }
