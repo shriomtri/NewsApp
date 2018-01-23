@@ -10,33 +10,7 @@
     tools:context="com.example.joker.newsapp.MainActivity"
     tools:openDrawer="start">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black_1000">
-
-
-        <com.example.joker.newsapp.VerticalViewPager
-            android:id="@+id/newsViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="1dp"
-            android:background="@color/black_1000"
-            android:clipToPadding="false"
-            android:paddingTop="5dp"
-            android:overScrollMode="never"
-            android:scrollbars="vertical" />
-
-        <!--<android.support.design.widget.FloatingActionButton-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_margin="20dp"-->
-            <!--app:fabSize="normal" />-->
-
-    </RelativeLayout>
+    <include layout="@layout/viewpager_layout"/>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
