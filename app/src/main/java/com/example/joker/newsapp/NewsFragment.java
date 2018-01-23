@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -33,8 +34,9 @@ public class NewsFragment extends Fragment {
     private int totalSize = 0;
     private int curPos = 0;
 
-    TextView title, description, source, publisTextView,webTextView;
+    TextView title, description, source, publisTextView;
     ImageView imageView;
+    LinearLayout linearLayout;
 
     public NewsFragment() {
     }
@@ -59,7 +61,7 @@ public class NewsFragment extends Fragment {
         imageView = view.findViewById(R.id.imageView);
         source = view.findViewById(R.id.sourceTextView);
         publisTextView = view.findViewById(R.id.publishedTimeTextView);
-        webTextView = view.findViewById(R.id.webTextView);
+        linearLayout = view.findViewById(R.id.webViewLayout);
 
         title.setText(Html.fromHtml(topHeadlines.getTitle().trim()));
         description.setText(Html.fromHtml(topHeadlines.getDescription().trim() + "..."));
@@ -94,7 +96,7 @@ public class NewsFragment extends Fragment {
         }
 
         //reading onClik to open webView
-        webTextView.setOnClickListener(new View.OnClickListener() {
+        linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new FinestWebView.Builder(context).show(topHeadlines.getUrl());

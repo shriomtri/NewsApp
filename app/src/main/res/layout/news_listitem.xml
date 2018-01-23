@@ -101,22 +101,26 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/grey_300"
+            android:layout_marginEnd="35dp"
             android:layout_marginStart="35dp"
-            android:layout_marginEnd="35dp"/>
+            android:background="@color/grey_300" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/webViewLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="5dp"
         android:layout_marginStart="5dp"
+        android:background="?attr/selectableItemBackground"
         android:orientation="horizontal"
+        android:paddingBottom="8dp"
         android:paddingEnd="8dp"
-        android:paddingStart="8dp">
+        android:paddingStart="8dp"
+        android:paddingTop="8dp">
 
         <ImageView
             android:layout_width="30dp"
@@ -125,10 +129,8 @@
             android:background="@drawable/web" />
 
         <TextView
-            android:id="@+id/webTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
             android:layout_gravity="center_vertical"
             android:layout_marginBottom="0dp"
             android:layout_marginEnd="4dp"
