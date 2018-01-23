@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.joker.newsapp.ModelClass.TopHeadlines;
+import com.thefinestartist.finestwebview.FinestWebView;
 
 import java.io.File;
 import java.util.Date;
@@ -32,7 +33,7 @@ public class NewsFragment extends Fragment {
     private int totalSize = 0;
     private int curPos = 0;
 
-    TextView title, description, source, publisTextView;
+    TextView title, description, source, publisTextView,webTextView;
     ImageView imageView;
 
     public NewsFragment() {
@@ -48,7 +49,7 @@ public class NewsFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
         View view = inflater.inflate(R.layout.news_listitem, container, false);
@@ -58,7 +59,7 @@ public class NewsFragment extends Fragment {
         imageView = view.findViewById(R.id.imageView);
         source = view.findViewById(R.id.sourceTextView);
         publisTextView = view.findViewById(R.id.publishedTimeTextView);
-
+        webTextView = view.findViewById(R.id.webTextView);
 
         title.setText(Html.fromHtml(topHeadlines.getTitle().trim()));
         description.setText(Html.fromHtml(topHeadlines.getDescription().trim() + "..."));
@@ -91,6 +92,15 @@ public class NewsFragment extends Fragment {
         } else {
             publisTextView.setText(date);
         }
+
+        //reading onClik to open webView
+        webTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new FinestWebView.Builder(context).show(topHeadlines.getUrl());
+            }
+        });
+
 
         return view;
     }

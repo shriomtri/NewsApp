@@ -28,6 +28,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.8.0'
 //    compile 'com.southernbox:ParallaxRecyclerView:1.0.0'
 
+    implementation 'com.thefinestartist:finestwebview:1.2.7'
 
 
     testImplementation 'junit:junit:4.12'
