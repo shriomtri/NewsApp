@@ -78,7 +78,7 @@
             android:paddingStart="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textColor="@color/black_1000"
-            android:textSize="21sp"
+            android:textSize="20sp"
             tools:text="Moody’s lifts India’s rating to Baa2" />
 
         <TextView
@@ -94,7 +94,7 @@
             android:padding="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textColor="@color/black_1000"
-            android:textSize="21sp"
+            android:textSize="20sp"
             tools:text="Rating agency Moody's Investor Services said that it is lifting India's government bond rating to Baa2 from Baa3.The rating agency upgraded the Government of India's local and foreign currency issuer" />
 
 
