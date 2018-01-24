@@ -6,6 +6,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,6 +40,8 @@ public class NewsFragment extends Fragment {
     ImageView imageView;
     LinearLayout linearLayout;
 
+    private DrawerLayout drawerLayout;
+
     public NewsFragment() {
     }
 
@@ -62,6 +66,7 @@ public class NewsFragment extends Fragment {
         source = view.findViewById(R.id.sourceTextView);
         publisTextView = view.findViewById(R.id.publishedTimeTextView);
         linearLayout = view.findViewById(R.id.webViewLayout);
+        drawerLayout = getActivity().findViewById(R.id.drawer_layout);
 
         title.setText(Html.fromHtml(topHeadlines.getTitle().trim()));
         description.setText(Html.fromHtml(topHeadlines.getDescription().trim() + "..."));
@@ -76,6 +81,17 @@ public class NewsFragment extends Fragment {
         //Source Name
         String sourceBy = topHeadlines.getSource_name().trim();
         source.setText(sourceBy);
+        source.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.openDrawer(GravityCompat.START);
+                }
+
+            }
+        });
+
 
 //        //Author Name
 //        String authorName = topHeadlines.getAuthor().trim();
@@ -151,7 +167,7 @@ public class NewsFragment extends Fragment {
                 break;
         }
 
-        String date = day+"-"+month+"-"+year;
+        String date = day + "-" + month + "-" + year;
         return date;
 
     }
