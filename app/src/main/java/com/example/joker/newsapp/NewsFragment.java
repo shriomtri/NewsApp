@@ -1,6 +1,7 @@
 package com.example.joker.newsapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.joker.newsapp.ModelClass.TopHeadlines;
@@ -124,7 +126,33 @@ public class NewsFragment extends Fragment {
         });
 
 
+
+        //reading longpress on fragment.
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                //showToast("Long preassed", Toast.LENGTH_SHORT);
+
+                Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+
+                // Add data to the intent, the receiving app will decide
+                // what to do with it.
+                share.putExtra(Intent.EXTRA_SUBJECT,topHeadlines.getTitle().trim());
+                share.putExtra(Intent.EXTRA_TEXT,topHeadlines.getUrl().trim());
+
+                startActivity(Intent.createChooser(share, "Share link!"));
+
+                return true;
+            }
+        });
+
         return view;
+    }
+
+    private void showToast(String s, int lengthShort) {
+        Toast.makeText(context,s,lengthShort).show();
     }
 
     //method to return date.
