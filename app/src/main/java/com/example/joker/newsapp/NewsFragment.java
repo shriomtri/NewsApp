@@ -36,7 +36,7 @@ public class NewsFragment extends Fragment {
     private int totalSize = 0;
     private int curPos = 0;
 
-    TextView title, description, source, publisTextView;
+    TextView title, description, source, publisTextView,countTextView;
     ImageView imageView;
     LinearLayout linearLayout;
 
@@ -66,6 +66,7 @@ public class NewsFragment extends Fragment {
         source = view.findViewById(R.id.sourceTextView);
         publisTextView = view.findViewById(R.id.publishedTimeTextView);
         linearLayout = view.findViewById(R.id.webViewLayout);
+        countTextView = view.findViewById(R.id.countTextView);
         drawerLayout = getActivity().findViewById(R.id.drawer_layout);
 
         title.setText(Html.fromHtml(topHeadlines.getTitle().trim()));
@@ -92,6 +93,9 @@ public class NewsFragment extends Fragment {
             }
         });
 
+
+        //setting no of cards details info
+        countTextView.setText((curPos+1)+" of "+totalSize);
 
 //        //Author Name
 //        String authorName = topHeadlines.getAuthor().trim();
