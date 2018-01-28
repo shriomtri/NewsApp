@@ -16,19 +16,19 @@
         android:overScrollMode="never"
         android:scrollbars="vertical" />
 
-    <com.qintong.library.InsLoadingView
-        android:layout_centerInParent="true"
-        android:id="@+id/loading_view"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="50dp"
-        android:background="#4D000000"
-        app:status="loading"
-        app:start_color="@color/teal_600"
-        app:end_color="@color/deep_purple_400"
-        app:circle_duration="2000"
-        app:rotate_duration="10000"/>
+    <!--<com.qintong.library.InsLoadingView-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:id="@+id/loading_view"-->
+        <!--android:layout_width="56dp"-->
+        <!--android:layout_height="56dp"-->
+        <!--android:layout_gravity="bottom|center_horizontal"-->
+        <!--android:layout_marginBottom="50dp"-->
+        <!--android:background="#4D000000"-->
+        <!--app:status="loading"-->
+        <!--app:start_color="@color/teal_600"-->
+        <!--app:end_color="@color/deep_purple_400"-->
+        <!--app:circle_duration="2000"-->
+        <!--app:rotate_duration="10000"/>-->
 
 
 </FrameLayout>

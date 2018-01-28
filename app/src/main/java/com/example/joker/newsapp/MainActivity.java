@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -94,9 +95,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
 //        recyclerView.setAdapter(topNewListAdapter);
 
-        //Loading Animation
-        insLoadingView = findViewById(R.id.loading_view);
-        insLoadingView.setVisibility(View.GONE);
+//        //Loading Animation
+//        insLoadingView = findViewById(R.id.loading_view);
+//        insLoadingView.setVisibility(View.GONE);
 
         viewPager.setAdapter(pagerAdapter);
         makeNetworkCall(THE_TIMES_OF_INDIA);
@@ -116,7 +117,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         RecyclerView navList  = findViewById(R.id.navList);
 
-        navList.setLayoutManager(new LinearLayoutManager(this));
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
+
+        navList.setLayoutManager(staggeredGridLayoutManager);
 
         NavAdapter navAdapter = new NavAdapter(this);
         navList.setAdapter(navAdapter);
@@ -131,8 +134,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         queryBundle.putString("SOURCE", source);
 
         //Log.d(TAG, " source " + source);
+        //insLoadingView.setVisibility(View.VISIBLE);
 
-        insLoadingView.setVisibility(View.VISIBLE);
 
         Loader<String> newsLoader = loaderManager.getLoader(NEWS_LOADER);
 
@@ -218,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             return;
         }
 
-        insLoadingView.setVisibility(View.GONE);
+        //insLoadingView.setVisibility(View.GONE);
 
         topHeadlines.clear();
         topHeadlines = ParseTopHeadline.parseTopHeadline(response);
@@ -253,7 +256,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         makeNetworkCall(source);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
 
         if(drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawers();
