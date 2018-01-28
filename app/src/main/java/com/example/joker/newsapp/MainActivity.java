@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private SQLHelperClass dbHelper;
 
     //Instace of loadingAnimantion
-    private InsLoadingView insLoadingView;
+    //private InsLoadingView insLoadingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
