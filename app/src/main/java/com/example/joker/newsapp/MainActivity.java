@@ -26,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.comix.overwatch.HiveProgressView;
 import com.example.joker.newsapp.Adapter.NavAdapter;
 import com.example.joker.newsapp.Adapter.PagerAdapter;
 import com.example.joker.newsapp.Database.CRUDHelper;
@@ -34,7 +35,6 @@ import com.example.joker.newsapp.ModelClass.TopHeadlines;
 import com.example.joker.newsapp.Utils.HttpHandler;
 import com.example.joker.newsapp.Utils.NewsDataSet;
 import com.example.joker.newsapp.Utils.ParseTopHeadline;
-import com.qintong.library.InsLoadingView;
 
 import java.util.ArrayList;
 
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private SQLHelperClass dbHelper;
 
     //Instace of loadingAnimantion
-    //private InsLoadingView insLoadingView;
+    private HiveProgressView hiveProgressView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +99,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 //        insLoadingView = findViewById(R.id.loading_view);
 //        insLoadingView.setVisibility(View.GONE);
 
+        hiveProgressView = findViewById(R.id.hiveProgress);
+        hiveProgressView.setVisibility(View.GONE);
+
         viewPager.setAdapter(pagerAdapter);
         makeNetworkCall(THE_TIMES_OF_INDIA);
 
@@ -134,8 +137,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         queryBundle.putString("SOURCE", source);
 
         //Log.d(TAG, " source " + source);
-        //insLoadingView.setVisibility(View.VISIBLE);
-
+        hiveProgressView.setVisibility(View.VISIBLE);
 
         Loader<String> newsLoader = loaderManager.getLoader(NEWS_LOADER);
 
@@ -221,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             return;
         }
 
-        //insLoadingView.setVisibility(View.GONE);
+        hiveProgressView.setVisibility(View.GONE);
 
         topHeadlines.clear();
         topHeadlines = ParseTopHeadline.parseTopHeadline(response);

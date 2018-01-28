@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black_1000">
 
     <com.example.joker.newsapp.VerticalViewPager
@@ -12,23 +12,24 @@
         android:layout_margin="1dp"
         android:background="@color/black_1000"
         android:clipToPadding="false"
-        android:paddingTop="5dp"
         android:overScrollMode="never"
+        android:paddingTop="5dp"
         android:scrollbars="vertical" />
 
-    <!--<com.qintong.library.InsLoadingView-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:id="@+id/loading_view"-->
-        <!--android:layout_width="56dp"-->
-        <!--android:layout_height="56dp"-->
-        <!--android:layout_gravity="bottom|center_horizontal"-->
-        <!--android:layout_marginBottom="50dp"-->
-        <!--android:background="#4D000000"-->
-        <!--app:status="loading"-->
-        <!--app:start_color="@color/teal_600"-->
-        <!--app:end_color="@color/deep_purple_400"-->
-        <!--app:circle_duration="2000"-->
-        <!--app:rotate_duration="10000"/>-->
+    <com.comix.overwatch.HiveProgressView
+        android:id="@+id/hiveProgress"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_gravity="end|top"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="10dp"
+        app:hive_animDuration="5000"
+        app:hive_color="@color/pink_700"
+        app:hive_cornerRadius="5"
+        app:hive_maxAlpha="255"
+        app:hive_rainbow="true"
+        app:hive_shrink="true" />
 
 
 </FrameLayout>
