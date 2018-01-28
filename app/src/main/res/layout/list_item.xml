@@ -1,38 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/listContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="3dp"
-    android:layout_marginEnd="3dp"
-    android:layout_marginTop="8dp"
+    android:layout_gravity="center_horizontal"
     android:layout_marginBottom="8dp"
-    android:orientation="horizontal">
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="10dp"
+    android:background="@color/white_1000"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="4dp">
+
+    <ImageView
+        android:id="@+id/sourceImage"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:scaleType="fitCenter"
+        android:src="@drawable/techcrunch" />
+
 
     <TextView
         android:id="@+id/sourceName"
-        android:layout_weight="2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:gravity="start"
-        android:textSize="16sp"
-        tools:text="India News"
-        android:textColor="@color/grey_900"/>
-
+        android:background="?attr/selectableItemBackground"
+        android:text="Tech Crunch"
+        android:textColor="@color/black_1000"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/sourceType"
-        android:layout_weight="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginBottom="5dp"
-        android:gravity="end"
-        android:paddingEnd="5dp"
-        android:textSize="12dp"
-        tools:text="General"
-        android:layout_marginLeft="3dp" />
+        android:background="?attr/selectableItemBackground"
+        android:text="Technology"
+        android:textColor="@color/black_1000"
+        android:textSize="12sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/grey_400" />
 
 </LinearLayout>

@@ -2,72 +2,104 @@ package com.example.joker.newsapp.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.example.joker.newsapp.ClickListener;
 import com.example.joker.newsapp.Database.NewsContractor;
 import com.example.joker.newsapp.R;
+import com.example.joker.newsapp.Utils.NewsDataSet;
 
 import org.w3c.dom.Text;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by joker on 27/11/17.
  */
 
-public class NavAdapter extends BaseAdapter {
+public class NavAdapter extends RecyclerView.Adapter<NavAdapter.Viewholder> {
 
     private String[] channelName = null;
     private String[] channerType = null;
+    private String[] channelId = null;
+    private Map<String,Integer> imageCollection = new HashMap<>();
+    private Context context;
+    ClickListener clickListener;
 
-    public NavAdapter(String[] channelName, String[] channerType) {
-        this.channelName = channelName;
-        this.channerType = channerType;
+    private int current_pos = 0;
+
+    public NavAdapter(Context context) {
+        this.channelName = NewsDataSet.getNewsChannel();
+        this.channerType = NewsDataSet.getCategory();
+        this.imageCollection = NewsDataSet.getImageCollection();
+        this.channelId = NewsDataSet.getChannelId();
+        this.context = context;
+        this.clickListener = (ClickListener) context;
     }
 
     @Override
-    public int getCount() {
-        return channelName.length;
+    public Viewholder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
+        return new Viewholder(v);
     }
 
     @Override
-    public Object getItem(int position) {
-        return channelName[position];
+    public void onBindViewHolder(Viewholder holder, int position) {
+
+        holder.bindData(position);
     }
 
     @Override
-    public long getItemId(int position) {
-        return channelName[position].hashCode();
+    public int getItemCount() {
+        return channelId.length;
     }
 
-    @Override
-    public View getView(int position, View converterView, ViewGroup parent) {
+    public class Viewholder extends RecyclerView.ViewHolder {
 
-        Viewholder viewholder = null;
+        TextView sourceName=null,sourceType=null;
+        ImageView sourceImage = null;
+        LinearLayout linearLayout = null;
 
-        if(converterView == null) {
+        public Viewholder(View itemView) {
+            super(itemView);
 
-            converterView  = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+            sourceName = itemView.findViewById(R.id.sourceName);
+            sourceType = itemView.findViewById(R.id.sourceType);
+            sourceImage = itemView.findViewById(R.id.sourceImage);
+            linearLayout = itemView.findViewById(R.id.listContainer);
 
-            viewholder = new Viewholder();
-            viewholder.sourceType = converterView.findViewById(R.id.sourceType);
-            viewholder.sourceName = converterView.findViewById(R.id.sourceName);
-            converterView.setTag(viewholder);
-
-        }else{
-            viewholder  = (Viewholder) converterView.getTag();
         }
 
-        viewholder.sourceName.setText(channelName[position]);
-        viewholder.sourceType.setText(channerType[position]);
+        public void bindData(final int position) {
 
-        return converterView;
+            this.sourceName.setText(channelName[position]);
+            this.sourceType.setText(channerType[position]);
 
-    }
+            Glide.with(context)
+                    .load(imageCollection.get(channelId[position]))
+                    .into(this.sourceImage);
 
-    class Viewholder {
-        TextView sourceName = null, sourceType = null;
+            this.linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickListener.DrawerClickListerner(channelId[position]);
+                    Log.d("News Clicked ", channelName[position]);
+
+                }
+            });
+
+
+
+        }
     }
 }

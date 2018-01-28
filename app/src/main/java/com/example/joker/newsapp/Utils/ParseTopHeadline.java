@@ -40,8 +40,8 @@ public final class ParseTopHeadline {
                     String author = article.getString("author");
                     String publishedAt = article.getString("publishedAt");
 
-                    //Using Log to track publishedAt data;
-                    Log.d("published ", publishedAt);
+//                    //Using Log to track publishedAt data;
+//                    Log.d("published ", publishedAt);
 
                     JSONObject source = article.getJSONObject("source");
 

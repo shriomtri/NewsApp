@@ -37,7 +37,7 @@
                 android:paddingEnd="8dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                android:paddingStart="8dp"
+                android:paddingStart="10dp"
                 android:text="The Times of Hindu"
                 android:textColor="@color/white_1000"
                 android:textSize="20dp" />

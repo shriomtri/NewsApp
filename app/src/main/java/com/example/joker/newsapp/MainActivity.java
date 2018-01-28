@@ -14,6 +14,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,7 +36,7 @@ import com.example.joker.newsapp.Utils.ParseTopHeadline;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener, LoaderManager.LoaderCallbacks<String> {
+public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener, LoaderManager.LoaderCallbacks<String> , ClickListener{
 
     private static final String API_KEY = "ded182f8057546f1b36f4cd3461219d4";
     private static final String THE_TIMES_OF_INDIA = "the-times-of-india";
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         loadPreferences(preferences);
         //register the shared preference
         preferences.registerOnSharedPreferenceChangeListener(MainActivity.this);
+
 
         loaderManager = getSupportLoaderManager();
 
@@ -103,24 +106,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
-        ListView navList  = findViewById(R.id.navList);
+        RecyclerView navList  = findViewById(R.id.navList);
 
-        NavAdapter navAdapter = new NavAdapter(NewsDataSet.getNewsChannel(),NewsDataSet.getCategory());
+        navList.setLayoutManager(new LinearLayoutManager(this));
+
+        NavAdapter navAdapter = new NavAdapter(this);
         navList.setAdapter(navAdapter);
 
-        final String[] sourceId = NewsDataSet.getChannelId();
-
-        navList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                makeNetworkCall(sourceId[position]);
-
-                if (drawer.isDrawerOpen(GravityCompat.START)) {
-                    drawer.closeDrawer(GravityCompat.START);
-                }
-
-            }
-        });
 
     }
 
@@ -244,4 +236,16 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         toast.show();
     }
 
+    @Override
+    public void DrawerClickListerner(String source) {
+
+        makeNetworkCall(source);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        if(drawer.isDrawerOpen(GravityCompat.START)){
+            drawer.closeDrawers();
+        }
+
+    }
 }

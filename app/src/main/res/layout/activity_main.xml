@@ -36,13 +36,14 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textColor="@color/purple_600" />
 
-            <ListView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/navList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"
                 android:layout_marginEnd="6dp"
                 android:dividerHeight="0dp"
+                android:background="@color/white_1000"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="10dp"
                 android:animateLayoutChanges="false" />

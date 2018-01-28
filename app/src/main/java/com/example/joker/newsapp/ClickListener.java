@@ -6,6 +6,6 @@ package com.example.joker.newsapp;
 
 public interface ClickListener {
 
-    public void DrawerClickListerner();
+    public void DrawerClickListerner(String a);
 
 }
