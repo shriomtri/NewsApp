@@ -33,6 +33,7 @@ import com.example.joker.newsapp.ModelClass.TopHeadlines;
 import com.example.joker.newsapp.Utils.HttpHandler;
 import com.example.joker.newsapp.Utils.NewsDataSet;
 import com.example.joker.newsapp.Utils.ParseTopHeadline;
+import com.qintong.library.InsLoadingView;
 
 import java.util.ArrayList;
 
@@ -57,6 +58,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private SQLiteDatabase database;
     private SQLHelperClass dbHelper;
 
+    //Instace of loadingAnimantion
+    private InsLoadingView insLoadingView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         dbHelper = new SQLHelperClass(this);
         database = dbHelper.getWritableDatabase();
 
-//        topNewListAdapter = new TopNewListAdapter(this);
+        //topNewListAdapter = new TopNewListAdapter(this);
 
         fm = getSupportFragmentManager();
         pagerAdapter = new PagerAdapter(this,fm,CRUDHelper.getAllRecords(database));
@@ -89,6 +93,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 //        topNewListAdapter.swapAdapters(CRUDHelper.getAllRecords(database));
 
 //        recyclerView.setAdapter(topNewListAdapter);
+
+        //Loading Animation
+        insLoadingView = findViewById(R.id.loading_view);
+        insLoadingView.setVisibility(View.GONE);
 
         viewPager.setAdapter(pagerAdapter);
         makeNetworkCall(THE_TIMES_OF_INDIA);
@@ -122,7 +130,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         Bundle queryBundle = new Bundle();
         queryBundle.putString("SOURCE", source);
 
-        Log.d(TAG, " source " + source);
+        //Log.d(TAG, " source " + source);
+
+        insLoadingView.setVisibility(View.VISIBLE);
 
         Loader<String> newsLoader = loaderManager.getLoader(NEWS_LOADER);
 
@@ -204,9 +214,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public void onLoadFinished(Loader<String> loader, String response) {
 
         if (response == null) {
-            showToast("Response is null.");
+            showToast("Check newtork connection.");
             return;
         }
+
+        insLoadingView.setVisibility(View.GONE);
 
         topHeadlines.clear();
         topHeadlines = ParseTopHeadline.parseTopHeadline(response);

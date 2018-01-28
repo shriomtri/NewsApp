@@ -29,7 +29,7 @@ dependencies {
 //    compile 'com.southernbox:ParallaxRecyclerView:1.0.0'
 
     implementation 'com.thefinestartist:finestwebview:1.2.7'
-
+    implementation 'com.qintong:insLoadingAnimation:1.1.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

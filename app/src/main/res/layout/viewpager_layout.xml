@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black_1000">
 
     <com.example.joker.newsapp.VerticalViewPager
@@ -15,5 +16,19 @@
         android:overScrollMode="never"
         android:scrollbars="vertical" />
 
+    <com.qintong.library.InsLoadingView
+        android:layout_centerInParent="true"
+        android:id="@+id/loading_view"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="50dp"
+        android:background="#4D000000"
+        app:status="loading"
+        app:start_color="@color/teal_600"
+        app:end_color="@color/deep_purple_400"
+        app:circle_duration="2000"
+        app:rotate_duration="10000"/>
 
-</RelativeLayout>
+
+</FrameLayout>
