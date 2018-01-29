@@ -35,7 +35,7 @@
                 android:text="News Channels"
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="@color/deep_purple_A700" />
+                android:textColor="@color/teal_500" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/navList"

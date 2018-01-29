@@ -97,8 +97,11 @@ public class NewsFragment extends Fragment {
 
 
         //setting no of cards details info
-        countTextView.setText((curPos+1)+" of "+totalSize);
-
+        if(curPos  == totalSize -1){
+            countTextView.setText("Last");
+        }else {
+            countTextView.setText((curPos + 1) + " of " + totalSize);
+        }
 //        //Author Name
 //        String authorName = topHeadlines.getAuthor().trim();
 //        if (authorName.equals("null") || authorName.length() > 20)
@@ -128,7 +131,7 @@ public class NewsFragment extends Fragment {
 
 
         //reading longpress on fragment.
-        view.setOnLongClickListener(new View.OnLongClickListener() {
+        title.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 //showToast("Long preassed", Toast.LENGTH_SHORT);

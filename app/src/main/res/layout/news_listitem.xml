@@ -75,6 +75,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingStart="8dp"
+            android:background="?attr/selectableItemBackground"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textColor="@color/black_1000"
             android:textSize="20sp"
@@ -138,7 +139,7 @@
             android:layout_weight="8"
             android:text="@string/click_to_read_more"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textColor="@color/deep_purple_A700"
+            android:textColor="@color/teal_600"
             android:textSize="22sp"
             android:textStyle="bold" />
 
