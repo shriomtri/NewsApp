@@ -218,12 +218,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     @Override
     public void onLoadFinished(Loader<String> loader, String response) {
 
+        hiveProgressView.setVisibility(View.GONE);
+
         if (response == null) {
             showToast("Check newtork connection.");
             return;
         }
 
-        hiveProgressView.setVisibility(View.GONE);
 
         topHeadlines.clear();
         topHeadlines = ParseTopHeadline.parseTopHeadline(response);

@@ -94,7 +94,7 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.Viewholder> {
                 @Override
                 public void onClick(View v) {
                     clickListener.DrawerClickListerner(channelId[position]);
-                    Log.d("News Clicked ", channelName[position]);
+                    //Log.d("News Clicked ", channelName[position]);
 
                 }
             });
