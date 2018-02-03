@@ -131,7 +131,7 @@ public class NewsFragment extends Fragment {
 
 
         //reading longpress on fragment.
-        title.setOnLongClickListener(new View.OnLongClickListener() {
+        imageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 //showToast("Long preassed", Toast.LENGTH_SHORT);

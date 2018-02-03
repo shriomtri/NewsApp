@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="toolbar_logo_height">22dp</dimen>
+    <dimen name="slide_title">26dp</dimen>
+    <dimen name="intro_desc_padding">10dp</dimen>
+    <dimen name="intro_desc_textsize">17sp</dimen>
+
+</resources>
