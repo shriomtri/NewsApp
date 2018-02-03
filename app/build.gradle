@@ -27,8 +27,8 @@ dependencies {
     compile 'com.android.support:preference-v7:26.1.0'
 
     implementation 'com.github.bumptech.glide:glide:3.8.0'
-//    compile 'com.southernbox:ParallaxRecyclerView:1.0.0'
 
+//    compile 'com.southernbox:ParallaxRecyclerView:1.0.0'
     implementation 'com.thefinestartist:finestwebview:1.2.7'
 
     compile 'com.github.zjywill:OverwatchProgress:1.5'

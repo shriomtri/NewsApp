@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/orange_500"
     android:orientation="vertical"
     android:weightSum="1">
+
 
     <TextView
         android:id="@+id/textView5"
@@ -13,10 +14,10 @@
         android:layout_marginTop="@dimen/toolbar_logo_height"
         android:layout_weight=".1"
         android:gravity="center"
-        android:text="@string/slide_2_title"
+        android:text="Share News"
         android:textColor="@android:color/white"
         android:textSize="@dimen/slide_title"
-        android:textStyle="normal" />
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/connect_jmi"
@@ -35,6 +36,7 @@
         android:text="@string/slide_2_desc"
         android:textColor="@android:color/white"
         android:textSize="@dimen/intro_desc_textsize"
-        android:textStyle="normal" />
+        android:textStyle="bold" />
+
 
 </LinearLayout>
