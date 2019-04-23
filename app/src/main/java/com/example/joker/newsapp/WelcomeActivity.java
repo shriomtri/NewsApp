@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.joker.newsapp.Utils.HttpHandler;
@@ -28,6 +29,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private boolean isInternet = false;
     private Toast toast;
     private SharedPreferences pref;
+    private RelativeLayout welcomeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +51,14 @@ public class WelcomeActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_welcome);
 
+        welcomeLayout = findViewById(R.id.welcomeLayout);
         ImageViewPager = findViewById(R.id.pager);
         TabLayout tabLayout = findViewById(R.id.tabDots);
         tabLayout.setupWithViewPager(ImageViewPager, true);
         btnSkip = findViewById(R.id.btn_skip);
         btnNext = findViewById(R.id.btn_next);
+
+        setBackgroundColor(android.R.color.holo_blue_dark);
 
         layouts = new int[]{
                 R.layout.welcome_slide1,
@@ -73,6 +78,14 @@ public class WelcomeActivity extends AppCompatActivity {
                 } else {
                     btnNext.setText(getString(R.string.next));
                     btnSkip.setVisibility(View.VISIBLE);
+                }
+
+                switch (position){
+                    case 0 : setBackgroundColor(android.R.color.holo_blue_dark);
+                    break;
+                    case 1 : setBackgroundColor(android.R.color.holo_green_dark);
+                    break;
+                    case 2 : setBackgroundColor(android.R.color.holo_orange_dark);
                 }
 
             }
@@ -110,6 +123,10 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setBackgroundColor(int color) {
+        this.welcomeLayout.setBackgroundColor(getApplicationContext().getResources().getColor(color));
     }
 
     private int getItem(int i) {
